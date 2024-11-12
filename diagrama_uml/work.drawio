@@ -105,6 +105,14 @@
                 <mxCell id="222" value="+agarrar()&#10;+soltar()&#10;+mover" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="219" vertex="1">
                     <mxGeometry y="118" width="180" height="52" as="geometry"/>
                 </mxCell>
+                <mxCell id="243" style="edgeStyle=none;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=3;endArrow=diamond;endFill=1;" parent="1" source="223" target="198" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="1200" y="403"/>
+                            <mxPoint x="1200" y="260"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
                 <mxCell id="223" value="Item" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
                     <mxGeometry x="1275" y="360" width="180" height="170" as="geometry"/>
                 </mxCell>
