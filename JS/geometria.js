@@ -1,13 +1,13 @@
 import * as THREE from 'three';
 
 export class Geometria {
-    constructor() {
-        this.geometry = new THREE.BoxGeometry(1, 1, 1); // Geometría del cubo
-        this.material = new THREE.MeshBasicMaterial({ color: 0x00ff00 }); // Material del cubo
-        this.cubo = new THREE.Mesh(this.geometry, this.material); // Mesh del cubo
+    constructor(geometry, material) {
+        this.geometry = geometry; // Geometría pasada como parámetro
+        this.material = material; // Material pasado como parámetro
+        this.object3D = new THREE.Mesh(this.geometry, this.material); // Creación del objeto 3D
     }
 
-    getCubo() {
-        return this.cubo; // Retorna el cubo
+    getObject3D() {
+        return this.object3D; // Retorna el objeto 3D
     }
 }
