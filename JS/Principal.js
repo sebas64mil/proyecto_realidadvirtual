@@ -1,17 +1,24 @@
 // main.js
 import * as THREE from 'three'; // Importar Three.js
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { VRButton } from 'three/addons/webxr/VRButton.js';
+import * as CANNON from 'https://cdn.jsdelivr.net/npm/cannon-es@0.18.0/dist/cannon-es.js';
 import { Escenario } from './Escenario.js'; // Importar la clase Escenario
 
 // Inicialización de la escena de Three.js
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer();
+const controls = new OrbitControls(camera, renderer.domElement);
+
+
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 // Crear una instancia del escenario y agregar un cubo
 const escenario = new Escenario(scene);
-escenario.agregarCubo();
+escenario.agregarPiso();
+escenario.agregarPared();
 
 // Configurar la cámara
 camera.position.z = 5;

@@ -9,9 +9,15 @@ class Item extends Geometria {
     }
 
     // Método para crear un cubo
-    crearCubo() {
-        const geometry = this.crearObjeto();// Crear la geometría del cubo
-        const material = this.crearMaterial(); // Crear el material usando el color
+    crearPiso() {
+        const geometry = this.crearObjetoPiso();// Crear la geometría del cubo
+        const material = this.crearMaterialPiso(); // Crear el material usando el color
+        const cubo = new THREE.Mesh(geometry, material); // Crear el mesh del cubo
+        return cubo;
+    }
+    crearPared() {
+        const geometry = this.crearObjetopared();// Crear la geometría del cubo
+        const material = this.crearMaterialpared(); // Crear el material usando el color
         const cubo = new THREE.Mesh(geometry, material); // Crear el mesh del cubo
         return cubo;
     }

@@ -9,9 +9,18 @@ class Escenario {
     }
 
     // Método para agregar un cubo al escenario
-    agregarCubo() {
-        const cubo = this.item.crearCubo(); // Crear el cubo usando el método de Item
-        this.scene.add(cubo); // Añadir el cubo a la escena de Three.js
+    agregarPiso() {
+        const piso = this.item.crearPiso(); // Crear el cubo usando el método de Item
+        piso.position.y=-1
+        this.scene.add(piso); // Añadir el cubo a la escena de Three.js
+    }
+    agregarPared() {
+        const pared = this.item.crearPared();
+        const pared1 = this.item.crearPared();  // Crear el cubo usando el método de Item
+        pared.position.x=10
+        pared1.position.x=-10
+        this.scene.add(pared);
+        this.scene.add(pared1);  // Añadir el cubo a la escena de Three.js
     }
 }
 export { Escenario }; // Exportar la clase Escenario
