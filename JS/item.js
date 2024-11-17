@@ -1,29 +1,20 @@
-import { Geometria } from './geometria.js';
+// Item.js
 import * as THREE from 'three';
 
-export class Item extends Geometria {
-    constructor() {
-        // Llama al constructor de Geometria con valores predeterminados
-        const defaultGeometry = new THREE.BoxGeometry(1, 1, 1);
-        const defaultMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-        super(defaultGeometry, defaultMaterial);
+import { Geometria } from './geometria.js'; // Importar la clase Geometria
 
-        this.scene = new THREE.Scene(); // Crea la escena
-        this.scene.add(this.object3D); // Añade el objeto 3D a la escena
+class Item extends Geometria {
+    constructor(color) {
+        super(color); // Llama al constructor de la clase base (Geometria)
     }
 
-    // Método para personalizar la geometría y el material si se necesita
-    setGeometryAndMaterial(geometry, material) {
-        this.geometry = geometry;
-        this.material = material;
-        this.object3D = new THREE.Mesh(this.geometry, this.material);
-
-        // Reemplaza el objeto en la escena
-        this.scene.clear(); // Limpia la escena
-        this.scene.add(this.object3D);
-    }
-
-    render(renderer, camera) {
-        renderer.render(this.scene, camera);
+    // Método para crear un cubo
+    crearCubo() {
+        const geometry = new THREE.BoxGeometry(1, 1, 1); // Crear la geometría del cubo
+        const material = this.crearMaterial(); // Crear el material usando el color
+        const cubo = new THREE.Mesh(geometry, material); // Crear el mesh del cubo
+        return cubo;
     }
 }
+
+export { Item }; // Exportar la clase Item

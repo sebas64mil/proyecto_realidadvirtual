@@ -1,13 +1,15 @@
+// Geometria.js
 import * as THREE from 'three';
 
-export class Geometria {
-    constructor(geometry, material) {
-        this.geometry = geometry; // Geometría pasada como parámetro
-        this.material = material; // Material pasado como parámetro
-        this.object3D = new THREE.Mesh(this.geometry, this.material); // Creación del objeto 3D
+class Geometria {
+    constructor(color = 0x00ff00) {
+        this.color = color; // Color verde por defecto
     }
 
-    getObject3D() {
-        return this.object3D; // Retorna el objeto 3D
+    // Método para crear un material
+    crearMaterial() {
+        return new THREE.MeshBasicMaterial({ color: this.color });
     }
 }
+
+export { Geometria }; // Exportar la clase para que se pueda usar en otros archivos
