@@ -26,7 +26,7 @@ camera.position.set(0, 1.6, 3); // Posición adecuada para VR
 // Activar VR si se detecta el visor VR
 renderer.xr.enabled = true;
 
-// Animación para renderizar la escena
+// Usar setAnimationLoop para VR en lugar de requestAnimationFrame
 function animate() {
     // Si estamos en VR, el renderer actualizará automáticamente la cámara
     if (renderer.xr.isPresenting) {
@@ -35,8 +35,8 @@ function animate() {
         // Aquí puedes agregar cualquier lógica para mover la cámara fuera de VR, si es necesario
     }
 
-    requestAnimationFrame(animate);
     renderer.render(scene, camera);
 }
 
-animate();
+// Usar setAnimationLoop para WebXR
+renderer.setAnimationLoop(animate);
