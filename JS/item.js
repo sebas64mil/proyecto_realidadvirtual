@@ -20,7 +20,7 @@ class Item extends Geometria {
         return new THREE.Mesh(geometry, material);
     }
 
-    crearBloque(callback) {
+    crearBloque() {
         this.crearObjetobloque((object) => {
             // Asignar materiales personalizados con texturas
             const albedoTransparencyTexture = this.textureLoader.load('Textures/CCP2_AlbedoTransparency.png');
@@ -44,7 +44,7 @@ class Item extends Geometria {
                 }
             });
 
-            callback(object); 
+            
         });
     }
 }

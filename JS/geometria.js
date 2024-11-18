@@ -24,7 +24,7 @@ class Geometria {
         return new THREE.BoxGeometry(1, 20, 30);
     }
 
-    crearObjetobloque(callback) {
+    crearObjetobloque() {
         this.loader.load('modelos3d/CCP2.fbx', (object) => {
             object.traverse((child) => {
                 if (child.isMesh) {
@@ -32,7 +32,6 @@ class Geometria {
                     child.receiveShadow = true;
                 }
             });
-            callback(object); 
         });
     }
 }
