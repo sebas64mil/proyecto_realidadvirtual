@@ -51,3 +51,5 @@ class Escenario {
 }
 
 export { Escenario }; // Exportar la clase Escenario
+
+
