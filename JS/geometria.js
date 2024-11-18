@@ -1,39 +1,41 @@
 // Geometria.js
 import * as THREE from 'three';
+import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
 
 class Geometria {
-    constructor(Color1= 0x00ff00,Color2= 0xff0000, Color3=0x0000ff) {
+    constructor(Color1 = 0x00ff00, Color2 = 0xff0000, Color3 = 0x0000ff) {
         this.Color1 = Color1;
-        this.Color2 = Color2; 
-        this.Color3 = Color3; // Color Color1 por defecto
+        this.Color2 = Color2;
+        this.Color3 = Color3;
+        this.loader = new FBXLoader(); // Instanciar el FBXLoader
     }
 
-    // Método para crear un material
+    // Métodos existentes para Piso y Pared
     crearMaterialPiso() {
         return new THREE.MeshBasicMaterial({ color: this.Color1 });
     }
-    crearObjetoPiso(){
-
+    crearObjetoPiso() {
         return new THREE.BoxGeometry(20, 1, 30);
     }
 
     crearMaterialpared() {
         return new THREE.MeshBasicMaterial({ color: this.Color2 });
     }
-    crearObjetopared(){
-
+    crearObjetopared() {
         return new THREE.BoxGeometry(1, 20, 30);
     }
-    crearMaterialbloque() {
-        return new THREE.MeshBasicMaterial({ color: this.Color3 });
+
+    crearObjetobloque(callback) {
+        this.loader.load('CCP2.fbx', (object) => {
+            object.traverse((child) => {
+                if (child.isMesh) {
+                    child.castShadow = true; 
+                    child.receiveShadow = true;
+                }
+            });
+            callback(object); 
+        });
     }
-    crearObjetobloque(){
-
-        return new THREE.BoxGeometry(2, 2, 2);
-    }
-
-
-
 }
 
-export { Geometria }; // Exportar la clase para que se pueda usar en otros archivos
+export { Geometria };

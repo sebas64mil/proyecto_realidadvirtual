@@ -1,32 +1,52 @@
 // Item.js
 import * as THREE from 'three';
-
-import { Geometria } from './geometria.js'; // Importar la clase Geometria
+import { Geometria } from './Geometria.js';
 
 class Item extends Geometria {
-    constructor(Color1) {
-        super(Color1); // Llama al constructor de la clase base (Geometria)
+    constructor(Color1, Color2, Color3) {
+        super(Color1, Color2, Color3);
+        this.textureLoader = new THREE.TextureLoader(); // Instanciar el cargador de texturas
     }
 
-    // Método para crear un cubo
     crearPiso() {
-        const geometry = this.crearObjetoPiso();// Crear la geometría del cubo
-        const material = this.crearMaterialPiso(); // Crear el material usando el color
-        const cubo = new THREE.Mesh(geometry, material); // Crear el mesh del cubo
-        return cubo;
+        const geometry = this.crearObjetoPiso();
+        const material = this.crearMaterialPiso();
+        return new THREE.Mesh(geometry, material);
     }
+
     crearPared() {
-        const geometry = this.crearObjetopared();// Crear la geometría del cubo
-        const material = this.crearMaterialpared(); // Crear el material usando el color
-        const cubo = new THREE.Mesh(geometry, material); // Crear el mesh del cubo
-        return cubo;
+        const geometry = this.crearObjetopared();
+        const material = this.crearMaterialpared();
+        return new THREE.Mesh(geometry, material);
     }
-    crearBloque(){
-        const geometry = this.crearObjetobloque();// Crear la geometría del cubo
-        const material = this.crearMaterialbloque(); // Crear el material usando el color
-        const cubo = new THREE.Mesh(geometry, material); // Crear el mesh del cubo
-        return cubo;
+
+    crearBloque(callback) {
+        this.crearObjetobloque((object) => {
+            // Asignar materiales personalizados con texturas
+            const albedoTransparencyTexture = this.textureLoader.load('CCP2_AlbedoTransparency.png');
+            const alphaTexture = this.textureLoader.load('CCP2_Alpha.png');
+            const metallicSmoothnessTexture = this.textureLoader.load('CCP2_MetallicSmoothness.png');
+            const normalTexture = this.textureLoader.load('CCP2_Normal.png');
+            const roughnessTexture = this.textureLoader.load('CCP2_Roughness.png');
+
+            const material = new THREE.MeshStandardMaterial({
+                map: albedoTransparencyTexture,
+                alphaMap: alphaTexture,
+                metalnessMap: metallicSmoothnessTexture,
+                normalMap: normalTexture,
+                roughnessMap: roughnessTexture,
+                transparent: true,
+            });
+
+            object.traverse((child) => {
+                if (child.isMesh) {
+                    child.material = material; 
+                }
+            });
+
+            callback(object); 
+        });
     }
 }
 
-export { Item }; // Exportar la clase Item
+export { Item };
