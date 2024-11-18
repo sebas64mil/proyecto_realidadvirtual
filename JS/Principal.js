@@ -1,3 +1,4 @@
+// Tu archivo principal
 import { VRButton } from 'three/addons/webxr/VRButton.js'; 
 import { Escenario } from './Escenario.js'; 
 import * as THREE from 'three';
@@ -28,16 +29,16 @@ scene.add(controller2);
 
 // Animación de la escena
 function animate() {
-    // Obtener la cámara que está usando el XR (VR)
+    // Obtener la cámara de VR si estamos en modo XR
     const vrCamera = renderer.xr.getCamera(camera);  // Cámara de VR cuando está en VR
 
-    // Actualizar el movimiento del jugador con la cámara de VR o la cámara estándar
+    // Actualizar el movimiento del jugador con la cámara adecuada
     if (renderer.xr.isPresenting) {
         // Si estamos en VR, actualizar con la cámara de VR
-        escenario.mover(vrCamera);  // Este método puede manejar la lógica de la cámara VR
+        escenario.mover(vrCamera);  // Pasa la cámara VR a mover
     } else {
         // Si no estamos en VR, actualizar con la cámara estándar
-        escenario.mover(camera);  // Este método usa la cámara estándar
+        escenario.mover(camera);  // Pasa la cámara estándar a mover
     }
 
     // Renderizar la escena con la cámara correcta

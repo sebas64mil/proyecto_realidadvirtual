@@ -27,9 +27,9 @@ class Escenario {
         this.scene.add(pared1);  // Añadir las paredes a la escena de Three.js
     }
 
-    agregarBloque(){
+    agregarBloque() {
         const bloque = this.item.crearBloque();  
-        this.scene.add(bloque)
+        this.scene.add(bloque);
     }
 
     // Método para mostrar los atributos del PlayerModel
@@ -38,8 +38,8 @@ class Escenario {
     }
 
     // Llamar al mover para actualizar la cámara
-    mover() {
-        this.pm.mover();  // Llamar al actualizar del PlayerModel para actualizar el movimiento con el gamepad
+    mover(camera) {
+        this.pm.mover(camera);  // Pasa la cámara actual (VR o estándar) a PlayerModel
     }
 }
 
