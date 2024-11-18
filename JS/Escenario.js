@@ -1,12 +1,22 @@
 import { Item } from './item.js';
 import { PlayerModel } from './PM.js';
+import * as THREE from 'three';
 
 class Escenario {
     constructor(scene, camera) {
         this.scene = scene; // Recibe una escena de Three.js
         this.camera = camera; // La cámara que se pasa al PlayerModel
         this.item = new Item(); // Composición: Escenario tiene un Item
-        this.pm = new PlayerModel(camera, scene); // Pasamos la escena al PlayerModel
+
+        // Crear personaje y añadirlo a la escena
+        this.character = new THREE.Mesh(
+            new THREE.BoxGeometry(1, 1, 1),
+            new THREE.MeshBasicMaterial({ color: 0x00ff00 })
+        );
+        this.character.position.y = -1; // Asegurar que el personaje esté en el suelo
+        this.scene.add(this.character);
+
+        this.pm = new PlayerModel(camera, scene, this.character); // Pasamos el personaje al PlayerModel
     }
 
     // Método para actualizar el escenario
@@ -34,3 +44,5 @@ class Escenario {
         this.scene.add(bloque);
     }
 }
+
+export { Escenario };
