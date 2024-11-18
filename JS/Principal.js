@@ -1,5 +1,6 @@
-import { VRButton } from 'three/addons/webxr/VRButton.js'; 
-import { Escenario } from './Escenario.js'; 
+// Tu archivo principal
+import { VRButton } from 'three/addons/webxr/VRButton.js';
+import { Escenario } from './Escenario.js';
 import * as THREE from 'three';
 
 const scene = new THREE.Scene();
@@ -12,7 +13,7 @@ document.body.appendChild(renderer.domElement);
 
 // Habilitar WebXR para el modo VR
 renderer.xr.enabled = true;
-document.body.appendChild(VRButton.createButton(renderer));  // Esto agrega el botón de VR en la página
+document.body.appendChild(VRButton.createButton(renderer));
 
 // Crear un escenario
 const escenario = new Escenario(scene, camera);
@@ -21,27 +22,18 @@ escenario.agregarPared();
 escenario.agregarBloque();
 
 // Controladores de VR
-const controller1 = renderer.xr.getController(0);  // Primer controlador
-const controller2 = renderer.xr.getController(1);  // Segundo controlador
+const controller1 = renderer.xr.getController(0);
+const controller2 = renderer.xr.getController(1);
 scene.add(controller1);
 scene.add(controller2);
 
 // Animación de la escena
 function animate() {
-    // Obtener la cámara que está usando el XR (VR)
-    const vrCamera = renderer.xr.getCamera(camera);  // Cámara de VR cuando está en VR
+    // Actualizar el movimiento con el gamepad
+    escenario.pm.actualizarConGamepad();  // Llamar al método que actualiza el movimiento
 
-    // Actualizar el movimiento del jugador con la cámara de VR o la cámara estándar
-    if (renderer.xr.isPresenting) {
-        // Si estamos en VR, actualizar con la cámara de VR
-        escenario.mover(vrCamera);  // Este método puede manejar la lógica de la cámara VR
-    } else {
-        // Si no estamos en VR, actualizar con la cámara estándar
-        escenario.mover(camera);  // Este método usa la cámara estándar
-    }
-
-    // Renderizar la escena con la cámara correcta
-    renderer.render(scene, renderer.xr.isPresenting ? vrCamera : camera);  // Usa la cámara de VR si estamos en VR
+    // Renderizar la escena con la cámara adecuada
+    renderer.render(scene, camera);
 }
 
 // Usar setAnimationLoop para VR
