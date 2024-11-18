@@ -1,13 +1,13 @@
 import * as THREE from 'three';
 
 class PlayerController {
-    constructor(camera, scene, character) {
-        this.camera = camera; // Cámara para calcular la dirección
-        this.character = character; // Personaje a mover
-        this.speed = 0.1; // Velocidad de movimiento
-        this.moveForward = false; // Indicador de movimiento hacia adelante
+    constructor(camera, scene) {
+        this.camera = camera; // La cámara que se moverá
+        this.scene = scene;   // La escena (por si es necesario)
+        this.speed = 0.1;     // Velocidad de movimiento
+        this.moveForward = false;  // Indicador de movimiento hacia adelante
         this.moveBackward = false; // Indicador de movimiento hacia atrás
-        this.gamepadIndex = null; // Índice del gamepad
+        this.gamepadIndex = null;  // Índice del gamepad
 
         this.detectarGamepad(); // Configura la detección del gamepad
     }
@@ -25,7 +25,7 @@ class PlayerController {
         });
     }
 
-    // Método principal para actualizar el movimiento
+    // Método principal para actualizar el movimiento de la cámara
     actualizarMovimiento() {
         if (this.gamepadIndex === null) return;
 
@@ -46,16 +46,16 @@ class PlayerController {
             this.moveBackward = false;
         }
 
-        // Calcular la dirección basada en la cámara
+        // Calcular la dirección basada en la orientación de la cámara
         const direction = new THREE.Vector3();
         this.camera.getWorldDirection(direction); // Obtiene la dirección en la que apunta la cámara
 
-        // Movimiento hacia adelante y hacia atrás en la dirección de la cámara
+        // Movimiento de la cámara hacia adelante y hacia atrás
         if (this.moveForward) {
-            this.character.position.addScaledVector(direction, this.speed); // Mover hacia adelante
+            this.camera.position.addScaledVector(direction, this.speed); // Mover hacia adelante
         }
         if (this.moveBackward) {
-            this.character.position.addScaledVector(direction, -this.speed); // Mover hacia atrás
+            this.camera.position.addScaledVector(direction, -this.speed); // Mover hacia atrás
         }
     }
 }
