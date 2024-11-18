@@ -34,8 +34,9 @@ function animate() {
 
     // Renderizar la escena
     renderer.render(scene, camera);
-    requestAnimationFrame(animate);  // Continuar la animación
 }
 
-animate();
+// Usar setAnimationLoop para VR
+renderer.setAnimationLoop(animate);
+
 
