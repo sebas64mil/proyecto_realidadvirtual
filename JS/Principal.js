@@ -27,19 +27,24 @@ const controller2 = renderer.xr.getController(1);  // Segundo controlador
 scene.add(controller1);
 scene.add(controller2);
 
+// Detectar el estado del VR y actualizar el modelo del jugador
+renderer.xr.addEventListener('sessionstart', () => {
+    // Cuando comience la sesión de VR, actualizamos el estado
+    escenario.pm.actualizarEstadoVR(true);
+});
+
+renderer.xr.addEventListener('sessionend', () => {
+    // Cuando termine la sesión de VR, actualizamos el estado
+    escenario.pm.actualizarEstadoVR(false);
+});
+
 // Animación de la escena
 function animate() {
     // Obtener la cámara de VR si estamos en modo XR
     const vrCamera = renderer.xr.getCamera(camera);  // Cámara de VR cuando está en VR
 
     // Actualizar el movimiento del jugador con la cámara adecuada
-    if (renderer.xr.isPresenting) {
-        // Si estamos en VR, actualizar con la cámara de VR
-        escenario.mover(vrCamera);  // Pasa la cámara VR a mover
-    } else {
-        // Si no estamos en VR, actualizar con la cámara estándar
-        escenario.mover(camera);  // Pasa la cámara estándar a mover
-    }
+    escenario.mover(renderer.xr.isPresenting ? vrCamera : camera);  // Usar la cámara correcta (VR o estándar)
 
     // Renderizar la escena con la cámara correcta
     renderer.render(scene, renderer.xr.isPresenting ? vrCamera : camera);  // Usa la cámara de VR si estamos en VR
