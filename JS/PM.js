@@ -15,7 +15,7 @@ class PlayerModel {
 
     // Método para actualizar el modelo
     actualizar() {
-        this.playerController.moverCamaraPorJoystick();
+        this.playerController.moverCamaraPorJoystick(this.velocidad);
     }
 }
 

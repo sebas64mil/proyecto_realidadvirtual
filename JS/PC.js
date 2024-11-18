@@ -22,7 +22,7 @@ class PlayerController {
     }
 
     // Método para mover la cámara basado en el joystick
-    moverCamaraPorJoystick() {
+    moverCamaraPorJoystick(velocidad) {
         if (this.gamepadIndex === null) return;
 
         const gamepad = navigator.getGamepads()[this.gamepadIndex];
@@ -31,7 +31,7 @@ class PlayerController {
         const joystickX = gamepad.axes[0]; // Eje horizontal del joystick
         const joystickY = gamepad.axes[1]; // Eje vertical del joystick
 
-        const velocidad = 0.1; // Velocidad de movimiento
+        // Velocidad de movimiento
 
         // Movimiento de la cámara
         this.camera.position.x += joystickX * velocidad;
