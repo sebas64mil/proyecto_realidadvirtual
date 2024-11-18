@@ -9,37 +9,30 @@ class PlayerController {
     }
 
     // Método para mover la cámara con el controlador
-    mover(direccion) {
+    mover(direccion, velocidad) {
+        // Obtener la rotación de la cámara en el eje X (inclinación hacia arriba y hacia abajo)
+        const rotacionX = this.camera.rotation.x;
 
-        // Mover la cámara con un vector de dirección
-        this.camera.position.add(direccion);
+        // Definir el intervalo en el que se permite el movimiento (por ejemplo, entre -45° y 45°)
+        const intervaloMaximo = Math.PI / 4;  // 45 grados en radianes
+
+        // Si la rotación en el eje X está dentro del intervalo permitido, mover
+        if (rotacionX >= -intervaloMaximo && rotacionX <= intervaloMaximo) {
+            // Limitar el movimiento en Y a 0, solo mover en los ejes X y Z
+            direccion.y = 0;
+
+            // Multiplicar la dirección por la velocidad
+            direccion.multiplyScalar(velocidad);
+
+            // Mover la cámara con un vector de dirección escalado
+            this.camera.position.add(direccion);
+        } else {
+            console.log("No se puede mover cuando la cámara está mirando el suelo o el techo.");
+        }
     }
 
     // Método para actualizar el raycast y puntero
-    actualizarRaycast() {
-        const direccion = new THREE.Vector3();
-        this.camera.getWorldDirection(direccion); // Obtener dirección hacia donde apunta la cámara
 
-        // Verificar que la dirección sea válida
-        if (!(direccion instanceof THREE.Vector3)) {
-            console.error("La dirección obtenida no es un objeto THREE.Vector3 válido.");
-            return;
-        }
-
-        console.log("Dirección de la cámara:", direccion); // Verificar la dirección obtenida
-
-        this.raycast.set(this.camera.position, direccion);  // Establecer raycast
-
-        // Verificar las intersecciones
-        const intersecciones = this.raycast.intersectObjects(this.scene.children); // Ver si intersecta con objetos en la escena
-        if (intersecciones.length > 0) {
-            // Si hay intersección, hacer algo con las intersecciones
-            console.log("Intersección encontrada:", intersecciones[0].point);
-        } else {
-            // Si no hay intersección, mover el puntero hacia adelante
-            console.log("No hay intersección, moviendo 5 unidades hacia adelante.");
-        }
-    }
 
     // Método para agarrar objetos (Ejemplo)
     agarrar() {

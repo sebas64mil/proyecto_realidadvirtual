@@ -1,5 +1,5 @@
-import { VRButton } from 'three/addons/webxr/VRButton.js';  // Importar VRButton
-import { Escenario } from './Escenario.js'; // Importar la clase Escenario
+import { VRButton } from 'three/addons/webxr/VRButton.js'; 
+import { Escenario } from './Escenario.js'; 
 import * as THREE from 'three';
 
 const scene = new THREE.Scene();
@@ -14,23 +14,21 @@ document.body.appendChild(renderer.domElement);
 renderer.xr.enabled = true;
 document.body.appendChild(VRButton.createButton(renderer));  // Esto agrega el botón de VR en la página
 
-// Añadir luz a la escena
-const luzAmbiente = new THREE.AmbientLight(0x404040); // Luz suave
-scene.add(luzAmbiente);
-
-const luzDireccional = new THREE.DirectionalLight(0xffffff, 1);
-luzDireccional.position.set(0, 1, 1).normalize();
-scene.add(luzDireccional);
-
 // Crear un escenario
 const escenario = new Escenario(scene, camera);
 escenario.agregarPiso();
 escenario.agregarPared();
 
+// Controladores de VR
+const controller1 = renderer.xr.getController(0);  // Primer controlador
+const controller2 = renderer.xr.getController(1);  // Segundo controlador
+scene.add(controller1);
+scene.add(controller2);
+
 // Animación de la escena
 function animate() {
-    // Actualizar el movimiento con el gamepad
-    escenario.mover();  // Este método ya llama a actualizar() en PlayerModel
+    // Actualizar el movimiento del jugador con controladores VR
+    escenario.mover();  // Este método ya puede usar los controladores
 
     // Renderizar la escena
     renderer.render(scene, camera);
@@ -38,5 +36,3 @@ function animate() {
 
 // Usar setAnimationLoop para VR
 renderer.setAnimationLoop(animate);
-
-

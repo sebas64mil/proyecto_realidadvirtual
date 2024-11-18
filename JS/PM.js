@@ -5,7 +5,7 @@ import * as THREE from 'three';
 
 class PlayerModel {
     constructor(camera, scene) {
-        this.velocidad = 10; // Atributo de velocidad
+        this.velocidad = 0.1; // Atributo de velocidad
         this.gravedad = 9.8; // Atributo de gravedad
         this.playerController = new PlayerController(camera, scene); // Pasar la escena al controlador
         this.playerView = new PlayerView();  // Añadimos la vista
@@ -29,7 +29,7 @@ class PlayerModel {
             const direccion = new THREE.Vector3(ejeX, 0, ejez); // Usamos -ejeY porque el eje Z es negativo para avanzar
     
             // Pasar el vector direccion al controlador para mover la cámara
-            this.playerController.mover(direccion);
+            this.playerController.mover(direccion, this.velocidad);  // Pasar la velocidad al controlador
         }
     }
 
