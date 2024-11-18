@@ -51,9 +51,21 @@ function handleGamepadInput() {
             const leftX = gamepad.axes[0]; // Eje X del stick izquierdo
             const leftY = gamepad.axes[1]; // Eje Y del stick izquierdo
 
-            // Mover la cámara según el stick izquierdo
-            camera.position.x += leftX * 0.1; // Ajusta la velocidad según sea necesario
-            camera.position.z += leftY * 0.1;
+            // Calcular dirección de movimiento en VR
+            if (renderer.xr.isPresenting) {
+                const direction = new THREE.Vector3();
+                camera.getWorldDirection(direction); // Dirección actual de la cámara
+                direction.y = 0; // Ignorar cambios en altura
+
+                // Mover en base a la dirección
+                camera.position.addScaledVector(direction, -leftY * 0.1); // Adelante/atrás
+                const strafe = new THREE.Vector3().crossVectors(direction, new THREE.Vector3(0, 1, 0));
+                camera.position.addScaledVector(strafe, leftX * 0.1); // Izquierda/derecha
+            } else {
+                // Movimiento normal fuera de VR
+                camera.position.x += leftX * 0.1;
+                camera.position.z += leftY * 0.1;
+            }
 
             // Leer botones
             gamepad.buttons.forEach((button, index) => {
@@ -62,20 +74,9 @@ function handleGamepadInput() {
                 }
             });
 
-            // Lanzar un raycast desde la cámara
-            const direction = new THREE.Vector3();
-            camera.getWorldDirection(direction); // Obtener la dirección en la que apunta la cámara
-            raycaster.set(camera.position, direction);
-
-            // Detectar intersecciones con objetos en la escena
-            const intersects = raycaster.intersectObjects(scene.children);
-            if (intersects.length > 0) {
-                console.log("Intersección:", intersects[0].object.name); // Objeto apuntado por la cámara
-            }
-
             // Avanzar hacia donde apunta la cámara al presionar el botón X (botón 0)
-            if (gamepad.buttons[0].pressed) { 
-                moveForward(0.8); // Avanzar 0.1 unidades
+            if (gamepad.buttons[0].pressed) {
+                moveForward(0.8);
             }
         }
     }
@@ -91,14 +92,7 @@ function moveForward(distance) {
 
 // Usar setAnimationLoop para VR en lugar de requestAnimationFrame
 function animate() {
-    // Si estamos en VR, el renderer actualizará automáticamente la cámara
-    if (renderer.xr.isPresenting) {
-        // La cámara es controlada automáticamente por WebXR en VR, no es necesario nada aquí
-    } else {
-        // Aquí puedes agregar cualquier lógica para mover la cámara fuera de VR, si es necesario
-    }
-
-    // Manejar la entrada del control
+    // Manejar la entrada del control en VR o no VR
     handleGamepadInput();
 
     // Renderizar la escena
