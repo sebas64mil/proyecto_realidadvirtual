@@ -28,13 +28,16 @@ scene.add(controller1);
 scene.add(controller2);
 
 // Animación de la escena
-function animate() {
-    // Actualizar el movimiento con el gamepad
-    escenario.pm.actualizarConGamepad();  // Llamar al método que actualiza el movimiento
+const escena = new Escenario(scene, camera);
 
-    // Renderizar la escena con la cámara adecuada
+// En el bucle de animación
+function animate() {
+    // Actualizar el movimiento basado en el gamepad
+    escena.actualizarMovimiento();
+
+    // Renderizar la escena
     renderer.render(scene, camera);
 }
 
-// Usar setAnimationLoop para VR
+// Configurar la animación
 renderer.setAnimationLoop(animate);

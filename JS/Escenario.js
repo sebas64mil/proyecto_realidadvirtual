@@ -1,4 +1,3 @@
-// Escenario.js
 import { Item } from './item.js'; // Importar la clase Item
 import { PlayerModel } from './PM.js'; // Importar la clase PlayerModel
 import * as THREE from 'three';
@@ -6,6 +5,7 @@ import * as THREE from 'three';
 class Escenario {
     constructor(scene, camera) {
         this.scene = scene; // Recibe una escena de Three.js
+        this.camera = camera; // La cámara que se pasa al PlayerModel
         this.item = new Item(); // Composición: Escenario tiene un Item
         this.pm = new PlayerModel(camera, scene); // Pasamos la escena al PlayerModel
     }
@@ -27,6 +27,7 @@ class Escenario {
         this.scene.add(pared1);  // Añadir las paredes a la escena de Three.js
     }
 
+    // Método para agregar un bloque al escenario
     agregarBloque() {
         const bloque = this.item.crearBloque();  
         this.scene.add(bloque);
@@ -37,9 +38,15 @@ class Escenario {
         this.pm.mostrarAtributos(); // Llamar al método de PlayerModel
     }
 
+    // Método para actualizar el movimiento del personaje
+    actualizarMovimiento() {
+        this.pm.mover(this.camera);  // Llamamos a 'mover' en lugar de 'actualizarConGamepad'
+    }
+
     // Llamar al mover para actualizar la cámara
-    mover(camera) {
-        this.pm.mover(camera);  // Pasa la cámara actual (VR o estándar) a PlayerModel
+    mover() {
+        // Este método no es necesario si ya estás actualizando el movimiento con el gamepad en otro lugar
+        this.pm.mover(this.camera);  // Pasa la cámara actual (VR o estándar) a PlayerModel
     }
 }
 

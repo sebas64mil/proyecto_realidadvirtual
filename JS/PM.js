@@ -1,4 +1,3 @@
-// PM.js
 import { PlayerController } from './PC.js';
 import { PlayerView } from './PV.js';
 import * as THREE from 'three';
@@ -32,9 +31,12 @@ class PlayerModel {
 
         if (controller) {
             const position = controller.position;
-            // Aquí puedes modificar la posición del jugador o de la cámara con los valores del controlador
-            // Ejemplo de cómo usar el controlador para mover la cámara:
+            // Mover la cámara con el controlador de VR
             camera.position.set(position.x, position.y, position.z);
+
+            // También puedes añadir rotación o inclinación aquí si lo deseas
+            const rotation = controller.rotation;
+            camera.rotation.set(rotation.x, rotation.y, rotation.z);
         }
     }
 
@@ -44,13 +46,20 @@ class PlayerModel {
         const gamepad = navigator.getGamepads()[0];  // Obtener el primer gamepad
 
         if (gamepad) {
-            // Crear el vector direccion con los valores de los ejes del gamepad
+            // Crear el vector dirección con los valores de los ejes del gamepad
             const ejeX = gamepad.axes[0];  // Eje X del joystick
             const ejeZ = gamepad.axes[1];  // Eje Y del joystick
 
-            // Crear el vector direccion para el movimiento
+            // Crear el vector dirección para el movimiento
             const direccion = new THREE.Vector3(ejeX, 0, ejeZ); // Usamos ejeZ como avance
             this.playerController.mover(direccion, this.velocidad);  // Pasar la dirección al controlador
+
+            // Agregar rotación o inclinación de la cámara basada en el gamepad si es necesario
+            if (gamepad.axes[2] || gamepad.axes[3]) {
+                const rotX = gamepad.axes[2];
+                const rotY = gamepad.axes[3];
+                this.playerController.rotar(rotX, rotY);  // Método adicional para rotación
+            }
         }
     }
 
