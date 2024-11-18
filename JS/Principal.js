@@ -1,4 +1,4 @@
-// main.js
+import { VRButton } from 'three/addons/webxr/VRButton.js';  // Importar VRButton
 import { Escenario } from './Escenario.js'; // Importar la clase Escenario
 import * as THREE from 'three';
 
@@ -9,6 +9,9 @@ const renderer = new THREE.WebGLRenderer();
 // Configuración de VR (si es necesario)
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
+
+// Agregar el botón de VR para iniciar la experiencia de realidad virtual
+document.body.appendChild(VRButton.createButton(renderer));  // Esto agrega el botón de VR en la página
 
 // Crear un escenario
 const escenario = new Escenario(scene, camera);
