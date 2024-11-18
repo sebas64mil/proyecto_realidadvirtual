@@ -33,21 +33,7 @@ class Escenario {
         this.scene.add(bloque);
     }
 
-    // Método para mostrar los atributos del PlayerModel
-    mostrarAtributosPM() {
-        this.pm.mostrarAtributos(); // Llamar al método de PlayerModel
-    }
 
-    // Método para actualizar el movimiento del personaje
-    actualizarMovimiento() {
-        this.pm.mover(this.camera);  // Llamamos a 'mover' en lugar de 'actualizarConGamepad'
-    }
-
-    // Llamar al mover para actualizar la cámara
-    mover() {
-        // Este método no es necesario si ya estás actualizando el movimiento con el gamepad en otro lugar
-        this.pm.mover(this.camera);  // Pasa la cámara actual (VR o estándar) a PlayerModel
-    }
 }
 
 export { Escenario }; // Exportar la clase Escenario

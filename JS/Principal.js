@@ -21,19 +21,12 @@ escenario.agregarPiso();
 escenario.agregarPared();
 escenario.agregarBloque();
 
-// Controladores de VR
-const controller1 = renderer.xr.getController(0);
-const controller2 = renderer.xr.getController(1);
-scene.add(controller1);
-scene.add(controller2);
-
 // Animación de la escena
 const escena = new Escenario(scene, camera);
 
 // En el bucle de animación
 function animate() {
     // Actualizar el movimiento basado en el gamepad
-    escena.actualizarMovimiento();
 
     // Renderizar la escena
     renderer.render(scene, camera);
