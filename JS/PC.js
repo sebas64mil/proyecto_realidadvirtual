@@ -2,20 +2,14 @@ import * as THREE from 'three';
 
 class PlayerController {
     constructor(camera, scene, character) {
-        this.camera = camera; // La cámara de la escena
-        this.scene = scene; // La escena donde se encuentran los objetos
-        this.character = character; // El personaje que se moverá
-        this.raycast = new THREE.Raycaster(); // Raycast para detectar interacciones
-        this.gamepadIndex = null; // Índice del gamepad conectado
+        this.camera = camera; // Cámara para calcular la dirección
+        this.character = character; // Personaje a mover
+        this.speed = 0.1; // Velocidad de movimiento
+        this.moveForward = false; // Indicador de movimiento hacia adelante
+        this.moveBackward = false; // Indicador de movimiento hacia atrás
+        this.gamepadIndex = null; // Índice del gamepad
 
-        // Variables de movimiento
-        this.speed = 0.1;
-        this.gravity = 0.02;
-        this.verticalSpeed = 0;
-        this.moveForward = false;
-        this.moveBackward = false;
-
-        this.detectarGamepad();
+        this.detectarGamepad(); // Configura la detección del gamepad
     }
 
     // Método para detectar y registrar el gamepad
@@ -31,16 +25,16 @@ class PlayerController {
         });
     }
 
-    // Método para manejar el movimiento del personaje
+    // Método principal para actualizar el movimiento
     actualizarMovimiento() {
         if (this.gamepadIndex === null) return;
 
         const gamepad = navigator.getGamepads()[this.gamepadIndex];
         if (!gamepad) return;
 
-        const leftStickY = gamepad.axes[1]; // Accede al eje Y del joystick izquierdo
+        const leftStickY = gamepad.axes[1]; // Eje Y del joystick izquierdo
 
-        // Determinar la dirección del movimiento
+        // Determinar dirección del movimiento
         if (leftStickY > 0.1) {
             this.moveForward = false;
             this.moveBackward = true;
@@ -54,25 +48,15 @@ class PlayerController {
 
         // Calcular la dirección basada en la cámara
         const direction = new THREE.Vector3();
-        this.camera.getWorldDirection(direction);
+        this.camera.getWorldDirection(direction); // Obtiene la dirección en la que apunta la cámara
 
-        // Aplicar movimiento al personaje
+        // Movimiento hacia adelante y hacia atrás en la dirección de la cámara
         if (this.moveForward) {
-            this.character.position.addScaledVector(direction, this.speed); // Avanzar
+            this.character.position.addScaledVector(direction, this.speed); // Mover hacia adelante
         }
         if (this.moveBackward) {
-            this.character.position.addScaledVector(direction, -this.speed); // Retroceder
+            this.character.position.addScaledVector(direction, -this.speed); // Mover hacia atrás
         }
-
-        // Manejar gravedad y altura
-        if (this.character.position.y > -1) {
-            this.verticalSpeed -= this.gravity; // Aplicar gravedad
-        } else {
-            this.verticalSpeed = 0; // Detener la caída
-            this.character.position.y = -1; // Asegurar que no atraviese el suelo
-        }
-
-        this.character.position.y += this.verticalSpeed; // Actualizar posición vertical
     }
 }
 
