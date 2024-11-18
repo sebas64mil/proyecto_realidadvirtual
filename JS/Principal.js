@@ -30,6 +30,12 @@ renderer.xr.enabled = true;
 let gamepadIndex = null;
 const raycaster = new THREE.Raycaster();
 
+// Crear una línea para visualizar el raycast
+const raycastLineGeometry = new THREE.BufferGeometry();
+const raycastLineMaterial = new THREE.LineBasicMaterial({ color: 0xff0000 }); // Color rojo
+const raycastLine = new THREE.Line(raycastLineGeometry, raycastLineMaterial);
+scene.add(raycastLine);
+
 // Detectar el gamepad conectado
 window.addEventListener("gamepadconnected", (event) => {
     console.log("Gamepad conectado:", event.gamepad);
@@ -51,32 +57,27 @@ function handleGamepadInput() {
             const leftX = gamepad.axes[0]; // Eje X del stick izquierdo
             const leftY = gamepad.axes[1]; // Eje Y del stick izquierdo
 
-            // Calcular dirección de movimiento en VR
-            if (renderer.xr.isPresenting) {
-                const direction = new THREE.Vector3();
-                camera.getWorldDirection(direction); // Dirección actual de la cámara
-                direction.y = 0; // Ignorar cambios en altura
+            // Mover la cámara según el stick izquierdo
+            camera.position.x += leftX * 0.1; // Ajusta la velocidad según sea necesario
+            camera.position.z += leftY * 0.1;
 
-                // Mover en base a la dirección
-                camera.position.addScaledVector(direction, -leftY * 0.1); // Adelante/atrás
-                const strafe = new THREE.Vector3().crossVectors(direction, new THREE.Vector3(0, 1, 0));
-                camera.position.addScaledVector(strafe, leftX * 0.1); // Izquierda/derecha
-            } else {
-                // Movimiento normal fuera de VR
-                camera.position.x += leftX * 0.1;
-                camera.position.z += leftY * 0.1;
+            // Lanzar el raycast desde la cámara
+            const direction = new THREE.Vector3();
+            camera.getWorldDirection(direction); // Obtener la dirección en la que apunta la cámara
+            raycaster.set(camera.position, direction);
+
+            // Actualizar visualización del raycast
+            updateRaycastVisualization(raycaster);
+
+            // Detectar intersecciones con objetos en la escena
+            const intersects = raycaster.intersectObjects(scene.children);
+            if (intersects.length > 0) {
+                console.log("Intersección:", intersects[0].object.name); // Objeto apuntado por la cámara
             }
 
-            // Leer botones
-            gamepad.buttons.forEach((button, index) => {
-                if (button.pressed) {
-                    console.log(`Botón ${index} presionado`);
-                }
-            });
-
             // Avanzar hacia donde apunta la cámara al presionar el botón X (botón 0)
-            if (gamepad.buttons[0].pressed) {
-                moveForward(0.8);
+            if (gamepad.buttons[0].pressed) { 
+                moveForward(0.8); // Avanzar 0.1 unidades
             }
         }
     }
@@ -90,9 +91,29 @@ function moveForward(distance) {
     camera.position.add(forward);
 }
 
+// Función para actualizar la línea del raycast
+function updateRaycastVisualization(raycaster) {
+    const origin = raycaster.ray.origin;
+    const direction = raycaster.ray.direction.clone().multiplyScalar(5); // Longitud de la línea
+
+    const positions = new Float32Array([
+        origin.x, origin.y, origin.z,
+        origin.x + direction.x, origin.y + direction.y, origin.z + direction.z
+    ]);
+
+    raycastLineGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+}
+
 // Usar setAnimationLoop para VR en lugar de requestAnimationFrame
 function animate() {
-    // Manejar la entrada del control en VR o no VR
+    // Si estamos en VR, el renderer actualizará automáticamente la cámara
+    if (renderer.xr.isPresenting) {
+        // La cámara es controlada automáticamente por WebXR en VR, no es necesario nada aquí
+    } else {
+        // Aquí puedes agregar cualquier lógica para mover la cámara fuera de VR, si es necesario
+    }
+
+    // Manejar la entrada del control
     handleGamepadInput();
 
     // Renderizar la escena
