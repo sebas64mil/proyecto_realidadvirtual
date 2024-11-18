@@ -34,7 +34,3 @@ class Escenario {
         this.scene.add(bloque);
     }
 }
-
-export { Escenario };
-
-
