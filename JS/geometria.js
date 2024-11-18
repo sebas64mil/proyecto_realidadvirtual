@@ -25,7 +25,7 @@ class Geometria {
     }
 
     crearObjetobloque(callback) {
-        this.loader.load('./modelos3d/CCP2.fbx', (object) => {
+        this.loader.load('modelos3d/CCP2.fbx', (object) => {
             object.traverse((child) => {
                 if (child.isMesh) {
                     child.castShadow = true; 

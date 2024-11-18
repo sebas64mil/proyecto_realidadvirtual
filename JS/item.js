@@ -23,11 +23,11 @@ class Item extends Geometria {
     crearBloque(callback) {
         this.crearObjetobloque((object) => {
             // Asignar materiales personalizados con texturas
-            const albedoTransparencyTexture = this.textureLoader.load('CCP2_AlbedoTransparency.png');
-            const alphaTexture = this.textureLoader.load('CCP2_Alpha.png');
-            const metallicSmoothnessTexture = this.textureLoader.load('CCP2_MetallicSmoothness.png');
-            const normalTexture = this.textureLoader.load('CCP2_Normal.png');
-            const roughnessTexture = this.textureLoader.load('CCP2_Roughness.png');
+            const albedoTransparencyTexture = this.textureLoader.load('Textures/CCP2_AlbedoTransparency.png');
+            const alphaTexture = this.textureLoader.load('Textures/CCP2_Alpha.png');
+            const metallicSmoothnessTexture = this.textureLoader.load('Textures/CCP2_MetallicSmoothness.png');
+            const normalTexture = this.textureLoader.load('Textures/CCP2_Normal.png');
+            const roughnessTexture = this.textureLoader.load('Textures/CCP2_Roughness.png');
 
             const material = new THREE.MeshStandardMaterial({
                 map: albedoTransparencyTexture,
