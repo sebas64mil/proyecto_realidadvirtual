@@ -7,7 +7,7 @@ class Escenario {
     constructor(scene, camera) {
         this.scene = scene; // Recibe una escena de Three.js
         this.item = new Item(); // Composición: Escenario tiene un Item
-        this.pm = new PlayerModel(camera); // Composición: Escenario tiene un PlayerModel (PM)
+        this.pm = new PlayerModel(camera, scene); // Pasamos la escena al PlayerModel
     }
 
     // Método para agregar un piso al escenario
@@ -34,7 +34,7 @@ class Escenario {
 
     // Llamar al mover para actualizar la cámara
     mover() {
-        this.pm.mover();  // Llamar al mover del PlayerModel para actualizar la cámara
+        this.pm.mover();  // Llamar al actualizar del PlayerModel para actualizar el movimiento con el gamepad
     }
 }
 

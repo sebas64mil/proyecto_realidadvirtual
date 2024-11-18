@@ -1,12 +1,13 @@
-// PlayerModel.js
+// PM.js
 import { PlayerController } from './PC.js';
 import { PlayerView } from './PV.js';
+import * as THREE from 'three';
 
 class PlayerModel {
-    constructor(camera) {
+    constructor(camera, scene) {
         this.velocidad = 10; // Atributo de velocidad
         this.gravedad = 9.8; // Atributo de gravedad
-        this.playerController = new PlayerController(camera); // Añadimos el controlador
+        this.playerController = new PlayerController(camera, scene); // Pasar la escena al controlador
         this.playerView = new PlayerView();  // Añadimos la vista
     }
 
@@ -16,7 +17,20 @@ class PlayerModel {
 
     // Método para mover al jugador
     mover() {
-        this.playerController.mover();  // Mueve la cámara a través del controlador
+        // Obtención de los valores del gamepad
+        const gamepad = navigator.getGamepads()[0];  // Obtener el primer gamepad
+    
+        if (gamepad) {
+            // Crear el vector direccion con los valores de los ejes del gamepad
+            const ejeX = gamepad.axes[0];  // Eje X del joystick
+            const ejez = gamepad.axes[1];  // Eje Y del joystick
+    
+            // Crear el vector direccion para el movimiento
+            const direccion = new THREE.Vector3(ejeX, 0, ejez); // Usamos -ejeY porque el eje Z es negativo para avanzar
+    
+            // Pasar el vector direccion al controlador para mover la cámara
+            this.playerController.mover(direccion);
+        }
     }
 
     // Configurar las luces
