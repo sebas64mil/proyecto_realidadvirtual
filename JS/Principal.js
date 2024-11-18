@@ -28,11 +28,20 @@ scene.add(controller2);
 
 // Animación de la escena
 function animate() {
-    // Actualizar el movimiento del jugador con controladores VR
-    escenario.mover();  // Este método ya puede usar los controladores
+    // Obtener la cámara que está usando el XR (VR)
+    const vrCamera = renderer.xr.getCamera(camera);  // Cámara de VR cuando está en VR
 
-    // Renderizar la escena
-    renderer.render(scene, camera);
+    // Actualizar el movimiento del jugador con la cámara de VR o la cámara estándar
+    if (renderer.xr.isPresenting) {
+        // Si estamos en VR, actualizar con la cámara de VR
+        escenario.mover(vrCamera);  // Este método puede manejar la lógica de la cámara VR
+    } else {
+        // Si no estamos en VR, actualizar con la cámara estándar
+        escenario.mover(camera);  // Este método usa la cámara estándar
+    }
+
+    // Renderizar la escena con la cámara correcta
+    renderer.render(scene, renderer.xr.isPresenting ? vrCamera : camera);  // Usa la cámara de VR si estamos en VR
 }
 
 // Usar setAnimationLoop para VR
