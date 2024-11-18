@@ -75,7 +75,7 @@ function handleGamepadInput() {
 
             // Avanzar hacia donde apunta la cámara al presionar el botón X (botón 0)
             if (gamepad.buttons[0].pressed) { 
-                moveForward(0.1); // Avanzar 0.1 unidades
+                moveForward(0.8); // Avanzar 0.1 unidades
             }
         }
     }
