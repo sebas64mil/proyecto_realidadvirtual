@@ -18,6 +18,7 @@ document.body.appendChild(VRButton.createButton(renderer));  // Esto agrega el b
 const escenario = new Escenario(scene, camera);
 escenario.agregarPiso();
 escenario.agregarPared();
+escenario.agregarBloque();
 
 // Controladores de VR
 const controller1 = renderer.xr.getController(0);  // Primer controlador

@@ -14,7 +14,7 @@ class PlayerController {
         const rotacionX = this.camera.rotation.x;
 
         // Definir el intervalo en el que se permite el movimiento (por ejemplo, entre -45° y 45°)
-        const intervaloMaximo = Math.PI / 4;  // 45 grados en radianes
+        const intervaloMaximo = Math.PI / 8;  // 45 grados en radianes
 
         // Si la rotación en el eje X está dentro del intervalo permitido, mover
         if (rotacionX >= -intervaloMaximo && rotacionX <= intervaloMaximo) {
@@ -26,6 +26,7 @@ class PlayerController {
 
             // Mover la cámara con un vector de dirección escalado
             this.camera.position.add(direccion);
+            
         } else {
             console.log("No se puede mover cuando la cámara está mirando el suelo o el techo.");
         }

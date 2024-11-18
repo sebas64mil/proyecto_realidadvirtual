@@ -29,7 +29,9 @@ class PlayerModel {
             const direccion = new THREE.Vector3(ejeX, 0, ejez); // Usamos -ejeY porque el eje Z es negativo para avanzar
     
             // Pasar el vector direccion al controlador para mover la cámara
-            this.playerController.mover(direccion, this.velocidad);  // Pasar la velocidad al controlador
+            if (gamepad) {
+                this.playerController.mover(direccion, this.velocidad);  
+            }// Pasar la velocidad al controlador
         }
     }
 

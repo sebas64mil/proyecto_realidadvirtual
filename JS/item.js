@@ -21,6 +21,12 @@ class Item extends Geometria {
         const cubo = new THREE.Mesh(geometry, material); // Crear el mesh del cubo
         return cubo;
     }
+    crearBloque(){
+        const geometry = this.crearObjetobloque();// Crear la geometría del cubo
+        const material = this.crearMaterialbloque(); // Crear el material usando el color
+        const cubo = new THREE.Mesh(geometry, material); // Crear el mesh del cubo
+        return cubo;
+    }
 }
 
 export { Item }; // Exportar la clase Item

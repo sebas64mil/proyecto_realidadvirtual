@@ -27,6 +27,11 @@ class Escenario {
         this.scene.add(pared1);  // Añadir las paredes a la escena de Three.js
     }
 
+    agregarBloque(){
+        const bloque = this.item.crearBloque();  
+        this.scene.add(bloque)
+    }
+
     // Método para mostrar los atributos del PlayerModel
     mostrarAtributosPM() {
         this.pm.mostrarAtributos(); // Llamar al método de PlayerModel

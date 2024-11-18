@@ -2,9 +2,10 @@
 import * as THREE from 'three';
 
 class Geometria {
-    constructor(Color1= 0x00ff00,Color2= 0xff0000) {
+    constructor(Color1= 0x00ff00,Color2= 0xff0000, Color3=0x0000ff) {
         this.Color1 = Color1;
-        this.Color2 = Color2;  // Color Color1 por defecto
+        this.Color2 = Color2; 
+        this.Color3 = Color3; // Color Color1 por defecto
     }
 
     // Método para crear un material
@@ -23,6 +24,15 @@ class Geometria {
 
         return new THREE.BoxGeometry(1, 20, 30);
     }
+    crearMaterialbloque() {
+        return new THREE.MeshBasicMaterial({ color: this.Color3 });
+    }
+    crearObjetobloque(){
+
+        return new THREE.BoxGeometry(2, 2, 2);
+    }
+
+
 
 }
 
