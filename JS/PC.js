@@ -1,46 +1,45 @@
-// pc.js
 import * as THREE from 'three';
 
 export class PC {
     constructor(camera, scene) {
-        this.camera = camera; // Recibe la cámara VR
-        this.scene = scene; // Recibe la escena para realizar interacciones con raycasting
+        this.camera = camera; // Cámara proporcionada por WebXR
+        this.scene = scene;
         this.raycaster = new THREE.Raycaster();
-        this.gamepad = null; // Referencia al gamepad
-        this.moveSpeed = 0.1; // Velocidad de movimiento
+        this.gamepad = null; // Inicialización del gamepad
     }
 
     initializeGamepad() {
-        window.addEventListener("gamepadconnected", (event) => {
-            console.log("Gamepad connected:", event.gamepad);
-            this.gamepad = event.gamepad;
-        });
-
-        window.addEventListener("gamepaddisconnected", (event) => {
-            console.log("Gamepad disconnected:", event.gamepad);
-            this.gamepad = null;
+        // Configurar detección de gamepads
+        window.addEventListener('gamepadconnected', (event) => {
+            if (event.gamepad.mapping === 'standard') {
+                this.gamepad = event.gamepad;
+                console.log('Gamepad conectado:', this.gamepad);
+            }
         });
     }
 
     handleVRMovement() {
         if (!this.gamepad) return;
 
-        // Actualizar el estado del gamepad
-        const gamepad = navigator.getGamepads()[this.gamepad.index];
-        const [leftStickX, leftStickY] = gamepad.axes; // Ejes del joystick izquierdo
+        // Detectar inputs del joystick izquierdo
+        const gamepads = navigator.getGamepads();
+        if (gamepads && gamepads[0]) {
+            const { axes } = gamepads[0];
+            const moveX = axes[0] * 0.1; // Movimiento en el eje X
+            const moveZ = axes[1] * 0.1; // Movimiento en el eje Z
 
-        // Raycaster desde la cámara hacia adelante
-        const direction = new THREE.Vector3();
-        this.camera.getWorldDirection(direction);
+            // Actualizar posición de la cámara según el joystick
+            const direction = new THREE.Vector3();
+            this.camera.getWorldDirection(direction);
+            direction.y = 0; // Restringir movimiento al plano XZ
+            direction.normalize();
 
-        // Normalizar para solo moverse en X y Z
-        direction.y = 0;
-        direction.normalize();
+            // Mover la cámara
+            this.camera.position.x += direction.x * moveZ - direction.z * moveX;
+            this.camera.position.z += direction.z * moveZ + direction.x * moveX;
+        }
 
-        // Actualizar posición de la cámara
-        const moveX = direction.x * leftStickY * this.moveSpeed;
-        const moveZ = direction.z * leftStickY * this.moveSpeed;
-        this.camera.position.x += moveX;
-        this.camera.position.z += moveZ;
+        // Configurar el raycaster
+        this.raycaster.set(this.camera.position, this.camera.getWorldDirection(new THREE.Vector3()));
     }
 }

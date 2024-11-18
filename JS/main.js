@@ -1,4 +1,3 @@
-// main.js
 import * as THREE from 'three';
 import { VRButton } from 'three/addons/webxr/VRButton.js';
 import { PV } from './PV.js';
@@ -20,32 +19,28 @@ class Main {
         this.scene = new THREE.Scene();
         this.scene.background = new THREE.Color(0x000000);
 
-        // Configurar cámara
+        // Configurar renderer con soporte VR
+        this.renderer = new THREE.WebGLRenderer({ antialias: true });
+        this.renderer.setSize(window.innerWidth, window.innerHeight);
+        this.renderer.xr.enabled = true; // Habilitar VR
+        document.body.appendChild(this.renderer.domElement);
+
+        // Agregar botón VR
+        document.body.appendChild(VRButton.createButton(this.renderer));
+
+        // La cámara de VR será manejada por WebXR automáticamente
         this.camera = new THREE.PerspectiveCamera(
             75,
             window.innerWidth / window.innerHeight,
             0.1,
             1000
         );
-        this.camera.position.set(0, 1.6, 3); // Altura inicial de la cámara (1.6m típica para VR)
 
-        // Configurar renderer con soporte para WebXR
-        this.renderer = new THREE.WebGLRenderer({ antialias: true });
-        this.renderer.setSize(window.innerWidth, window.innerHeight);
-        this.renderer.xr.enabled = true; // Habilitar WebXR
-        document.body.appendChild(this.renderer.domElement);
-
-        // Agregar botón de VR
-        document.body.appendChild(VRButton.createButton(this.renderer));
-
-        // Inicializar PV y PC
+        // Inicializar PV (geometrías) y PC (control de VR)
         this.pv = new PV(this.scene);
-        this.pc = new PC(this.camera, this.scene);
+        this.pc = new PC(this.renderer.xr.getCamera(this.camera), this.scene);
 
-        // Configurar Gamepad y Raycasting
-        this.pc.initializeGamepad();
-
-        // Agregar geometrías iniciales
+        // Añadir geometrías
         this.pv.addGreenCube();
         this.pv.Paredroja();
     }
@@ -54,16 +49,13 @@ class Main {
         this.init();
 
         // Render loop
-        const animate = () => {
-            this.renderer.setAnimationLoop(() => {
-                // Manejar el movimiento del usuario en VR
-                this.pc.handleVRMovement();
+        this.renderer.setAnimationLoop(() => {
+            // Manejo del control de VR
+            this.pc.handleVRMovement();
 
-                // Renderizar la escena
-                this.renderer.render(this.scene, this.camera);
-            });
-        };
-        animate();
+            // Renderizar escena
+            this.renderer.render(this.scene, this.camera);
+        });
     }
 }
 
