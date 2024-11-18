@@ -1,6 +1,6 @@
 // Item.js
 import * as THREE from 'three';
-import { Geometria } from './Geometria.js';
+import { Geometria } from './geometria.js';
 
 class Item extends Geometria {
     constructor(Color1, Color2, Color3) {

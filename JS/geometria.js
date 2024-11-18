@@ -1,7 +1,6 @@
 // Geometria.js
 import * as THREE from 'three';
-import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
-
+import { FBXLoader } from "https://cdn.jsdelivr.net/npm/three@v0.149.0/examples/jsm/loaders/FBXLoader.js";
 class Geometria {
     constructor(Color1 = 0x00ff00, Color2 = 0xff0000, Color3 = 0x0000ff) {
         this.Color1 = Color1;
@@ -26,7 +25,7 @@ class Geometria {
     }
 
     crearObjetobloque(callback) {
-        this.loader.load('CCP2.fbx', (object) => {
+        this.loader.load('./modelos3d/CCP2.fbx', (object) => {
             object.traverse((child) => {
                 if (child.isMesh) {
                     child.castShadow = true; 

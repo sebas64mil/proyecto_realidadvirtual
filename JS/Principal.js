@@ -1,5 +1,6 @@
 import { VRButton } from 'three/addons/webxr/VRButton.js';
 import { Escenario } from './Escenario.js';
+import { FBXLoader } from "FBXLoader";
 import * as THREE from 'three';
 
 const scene = new THREE.Scene();
