@@ -36,6 +36,13 @@ const raycastLineMaterial = new THREE.LineBasicMaterial({ color: 0xff0000 }); //
 const raycastLine = new THREE.Line(raycastLineGeometry, raycastLineMaterial);
 scene.add(raycastLine);
 
+// Crear un puntero en el centro de la cámara (usaremos un pequeño círculo)
+const pointerGeometry = new THREE.CircleGeometry(0.05, 32); // Radio pequeño para el puntero
+const pointerMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00 }); // Color verde
+const pointer = new THREE.Mesh(pointerGeometry, pointerMaterial);
+pointer.position.set(0, 0, -1); // Colocamos el puntero en frente de la cámara
+camera.add(pointer); // Añadir el puntero a la cámara para que siga su movimiento
+
 // Detectar el gamepad conectado
 window.addEventListener("gamepadconnected", (event) => {
     console.log("Gamepad conectado:", event.gamepad);
@@ -77,7 +84,7 @@ function handleGamepadInput() {
 
             // Avanzar hacia donde apunta la cámara al presionar el botón X (botón 0)
             if (gamepad.buttons[0].pressed) { 
-                moveForward(0.8); // Avanzar 0.1 unidades
+                moveForward(0.1); // Avanzar 0.1 unidades
             }
         }
     }
@@ -102,6 +109,13 @@ function updateRaycastVisualization(raycaster) {
     ]);
 
     raycastLineGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+    // Actualizar la posición del puntero (lo movemos hacia el extremo del raycast)
+    pointer.position.set(
+        origin.x + direction.x,
+        origin.y + direction.y,
+        origin.z + direction.z
+    );
 }
 
 // Usar setAnimationLoop para VR en lugar de requestAnimationFrame
