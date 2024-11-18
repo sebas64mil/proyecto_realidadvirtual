@@ -1,4 +1,3 @@
-// Tu archivo principal
 import { VRButton } from 'three/addons/webxr/VRButton.js';
 import { Escenario } from './Escenario.js';
 import * as THREE from 'three';
@@ -21,15 +20,10 @@ escenario.agregarPiso();
 escenario.agregarPared();
 escenario.agregarBloque();
 
-// Animación de la escena
-const escena = new Escenario(scene, camera);
-
-// En el bucle de animación
+// Bucle de animación
 function animate() {
-    // Actualizar el movimiento basado en el gamepad
-
-    // Renderizar la escena
-    renderer.render(scene, camera);
+    escenario.actualizar(); // Actualizar el escenario y sus componentes
+    renderer.render(scene, camera); // Renderizar la escena
 }
 
 // Configurar la animación
