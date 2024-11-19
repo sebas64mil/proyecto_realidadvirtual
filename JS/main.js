@@ -69,10 +69,10 @@ class Main {
         // Render loop
         this.renderer.setAnimationLoop((time, frame) => {
             // Actualizar los controles de órbita
-            this.controls.update();
+            //this.controls.update();
 
             // Aquí gestionamos la lógica según si estamos en VR o no
-            // this.pc.move(); // Mover el objeto 3D según el gamepad
+             this.pc.move(); // Mover el objeto 3D según el gamepad
 
             // Renderizar la escena con la cámara
             this.renderer.render(this.scene, this.camera);
