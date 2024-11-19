@@ -9,11 +9,11 @@ export class PC {
         
         // Crear un contenedor para la cámara, lo que permitirá mover la cámara dentro del contenedor
         this.cameraContainer = new THREE.Object3D();
-        this.camera.position.set(0, 0.3, 0.8)
+        this.camera.position.set(0, 0.3, 0.0)
         this.camera.rotation.y=THREE.MathUtils.degToRad(180)
         this.cameraContainer.add(this.camera); // Añadimos la cámara al contenedor
         this.scene.add(this.cameraContainer);
-        this.cameraContainer.position.set(0, 0.3, 0.8) // Añadimos el contenedor a la escena
+        this.cameraContainer.position.set(0, 0, 0.0) // Añadimos el contenedor a la escena
     }
 
     move() {
@@ -40,9 +40,9 @@ export class PC {
     
                     // Calcular el movimiento en los ejes X y Z a partir de ambos ejes del gamepad
                     const movement = new THREE.Vector3(
-                        direction.x * moveAxisX * 0.2, // Ajustar la velocidad en el eje X
+                        direction.x * moveAxisX * 0.01, // Ajustar la velocidad en el eje X
                         0, // No se mueve en el eje Y
-                        direction.z * moveAxisY * 0.2 // Ajustar la velocidad en el eje Z
+                        direction.z * moveAxisY * 0.01 // Ajustar la velocidad en el eje Z
                     );
     
                     // Mover el contenedor de la cámara
