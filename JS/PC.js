@@ -40,8 +40,8 @@ export class PC {
     
                     // Calcular vector de movimiento
                     const movement = new THREE.Vector3()
-                        .addScaledVector(forwardDirection, -moveAxisY * 0.1)
-                        .addScaledVector(rightDirection, moveAxisX * 0.1);
+                        .addScaledVector(forwardDirection, -moveAxisY * 0.01)
+                        .addScaledVector(rightDirection, moveAxisX * 0.01);
     
                     // Crear rayo para detectar colisiones
                     this.raycaster.ray.origin.copy(this.cameraContainer.position);
