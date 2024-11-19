@@ -31,7 +31,7 @@ export class PM {
                 text.name = 'FBXbotonInicio';
 
                 // Posicionar el texto en la escena
-                text.position.set(0, 4.6, 0);
+                text.position.set(0, 6, 0);
                 this.scene.add(text);
             });
         }
