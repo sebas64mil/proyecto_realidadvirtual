@@ -1,7 +1,5 @@
 import * as THREE from 'three';
 
-
-
 export class PC {
     constructor(camera, scene) {
         this.camera = camera; // Cámara proporcionada por WebXR
@@ -12,16 +10,16 @@ export class PC {
         // Crear un contenedor para la cámara, lo que permitirá mover la cámara dentro del contenedor
         this.cameraContainer = new THREE.Object3D();
         this.camera.position.set(0, 0, 0.0)
-        this.camera.rotation.y=THREE.MathUtils.degToRad(180)
+        this.camera.rotation.y = THREE.MathUtils.degToRad(180)
         this.cameraContainer.add(this.camera); // Añadimos la cámara al contenedor
         this.scene.add(this.cameraContainer);
-        this.cameraContainer.position.set(0, 4.6, 0.0) // Añadimos el contenedor a la escena
+        this.cameraContainer.position.set(0, 4.6, 0.0); // Añadimos el contenedor a la escena
     }
 
     move() {
         const gamepads = navigator.getGamepads();
         if (gamepads) {
-            this.gamepad = gamepads[0];
+            this.gamepad = gamepads[0];  // Asumimos que el primer gamepad es el que se usa
         
             if (this.gamepad) {
                 const moveAxisX = this.gamepad.axes[0];
@@ -61,19 +59,15 @@ export class PC {
             const intersectedObject = intersects[0].object;
     
             if (intersectedObject.name === 'portalButton') { // Verificar si el objeto tocado es el botón
-                // Verificar si la tecla 'x' fue presionada
-                if (window.navigator.vibrate && this.isKeyPressed('x')) {
-                    window.navigator.vibrate(200); // Vibrar por 200ms
+                // Comprobar si el botón 'X' (índice 0) o 'A' está presionado
+                if (this.gamepad && this.gamepad.buttons[0].pressed) {
+                    console.log("Botón X o A presionado"); // Aquí se puede ejecutar alguna lógica
+                    // Si quieres que el dispositivo vibre al presionar el botón
+                    if (window.navigator.vibrate) {
+                        window.navigator.vibrate(200); // Vibrar por 200ms
+                    }
                 }
             }
         }
     }
-    
-    
-    
-    
-
-    
-    
-    
 }
