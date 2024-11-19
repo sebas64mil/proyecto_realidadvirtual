@@ -22,33 +22,42 @@ export class PC {
     move() {
         const gamepads = navigator.getGamepads();
         if (gamepads) {
-            this.gamepad = gamepads[0];  // Asumimos que el primer gamepad es el que se usa
-        
+            this.gamepad = gamepads[0]; // Asumimos que el primer gamepad es el que se usa
+    
             if (this.gamepad) {
                 const moveAxisX = this.gamepad.axes[0];
                 const moveAxisY = this.gamepad.axes[1];
-        
+    
                 if (moveAxisX !== 0 || moveAxisY !== 0) {
-                    const direction = this.camera.getWorldDirection(new THREE.Vector3()).normalize();
-                    direction.y = 0;
-        
-                    const movement = new THREE.Vector3(
-                        direction.x * moveAxisY * -0.01,
-                        0,
-                        direction.z * moveAxisY * -0.01
-                    );
-        
-                    // Crear un rayo para detectar colisiones
-                    this.raycaster.ray.origin.copy(this.cameraContainer.position);
-                    this.raycaster.ray.direction.copy(movement);
-
+                    // Calcular dirección de movimiento
+                    const forwardDirection = this.camera.getWorldDirection(new THREE.Vector3()).normalize();
+                    forwardDirection.y = 0; // Evitar movimiento vertical
                     
+                    const rightDirection = new THREE.Vector3().crossVectors(
+                        new THREE.Vector3(0, 1, 0), 
+                        forwardDirection
+                    ).normalize();
+    
+                    // Calcular vector de movimiento
+                    const movement = new THREE.Vector3()
+                        .addScaledVector(forwardDirection, -moveAxisY * 0.1)
+                        .addScaledVector(rightDirection, moveAxisX * 0.1);
+    
+                    // Crear rayo para detectar colisiones
+                    this.raycaster.ray.origin.copy(this.cameraContainer.position);
+                    this.raycaster.ray.direction.copy(movement.clone().normalize());
+    
+                    const intersects = this.raycaster.intersectObjects(this.scene.children, true);
+                    
+                    // Si no hay colisiones, aplicar movimiento
+                    if (intersects.length === 0 || intersects[0].distance > 0.5) {
+                        this.cameraContainer.position.add(movement);
+                    }
                 }
             }
         }
-
-        
     }
+    
 
     Comprobar() {
         // Realizamos el raycast para detectar las colisiones
