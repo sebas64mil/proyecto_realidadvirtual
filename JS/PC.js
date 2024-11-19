@@ -6,6 +6,7 @@ export class PC {
         this.scene = scene;
         this.raycaster = new THREE.Raycaster();
         this.gamepad = null; // Inicialización del gamepad
+        this.controllers = {}; // Para almacenar los controladores de VR
     }
 
     initializeGamepad() {
@@ -20,10 +21,6 @@ export class PC {
 
     handleVRMovement(isVRMode) {
         if (isVRMode) {
-            // Aquí deberíamos usar el controlador de VR para mover la cámara
-            // Esto depende de cómo estás gestionando los controles en VR (a través de WebXR)
-            // Asumiendo que ya tienes código para manejar el movimiento del controlador en VR
-            // Este bloque solo sería ejecutado si estamos en modo VR
             this.handleVRControllerMovement();
         } else {
             // Detectar inputs del joystick izquierdo cuando no estamos en VR
@@ -35,9 +32,30 @@ export class PC {
     }
 
     handleVRControllerMovement() {
-        // Aquí debes poner el código para el movimiento con los controladores de VR
-        // Este es un ejemplo general; si usas WebXR o alguna otra librería de VR,
-        // tendrás que adaptar este código para seguir su flujo de datos
+        // Obtener los controladores de VR
+        const controllers = this.controllers;
+        for (let controllerId in controllers) {
+            const controller = controllers[controllerId];
+
+            if (controller && controller.gamepad) {
+                const gamepad = controller.gamepad;
+
+                // Supongamos que el joystick está en el primer eje (índice 0) para X y en el segundo eje (índice 1) para Y
+                const axes = gamepad.axes;
+                const moveX = axes[0] * 0.1; // Movimiento en el eje X
+                const moveZ = axes[1] * 0.1; // Movimiento en el eje Z
+
+                // Calcular dirección usando el raycaster
+                const direction = new THREE.Vector3();
+                this.camera.children[0].getWorldDirection(direction); // Usar la cámara VR contenida en el contenedor
+                direction.y = 0; // Restringir movimiento al plano XZ
+                direction.normalize();
+
+                // Mover la cámara en el plano XZ usando los inputs de los controladores
+                this.camera.position.x += direction.x * moveZ - direction.z * moveX;
+                this.camera.position.z += direction.z * moveZ + direction.x * moveX;
+            }
+        }
     }
 
     handleGamepadMovement() {
@@ -62,4 +80,3 @@ export class PC {
         }
     }
 }
-
