@@ -444,7 +444,7 @@ export class PV {
     
                 // Escalar y posicionar el modelo
                 fbx.scale.set(0.003, 0.003, 0.003);
-                fbx.position.set(2, 12, 0);
+                fbx.position.set(0.2, 12, 0);
     
                 // Añadir el modelo a la escena
                 this.scene.add(fbx);
