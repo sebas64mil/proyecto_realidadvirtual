@@ -5,6 +5,7 @@ import { FBXLoader } from 'three/addons/loaders/FBXLoader.js';
 import { PV } from './PV.js';
 import { PC } from './PC.js';
 import { PM } from './PM.js';
+import { Extras } from "./PV2.js";
 
 class Main {
     constructor() {
@@ -15,6 +16,7 @@ class Main {
         this.pv = null;
         this.pc = null; // Instancia de la clase PC para controlar la cámara
         this.pm = new PM();
+        this.Extra = new Extras();
     }
 
     cubemap() {
@@ -78,6 +80,22 @@ class Main {
         this.pv.FBXpasillo4();
         this.pv.FBXcuarto5();
         this.pv.FBXbutton();
+        this.pv.FBXbuttonSalaE2();
+        this.pv.FBXbuttonSalaI2();
+        this.pv.FBXbuttonSalaSen3();
+        this.pv.FBXbuttonSalaIn3();
+        this.pv.FBXbuttonSalaS4();
+        this.pv.FBXbuttonSalaL4();
+        this.pv.FBXbuttonsala5orden1();
+        this.pv.FBXbuttonsala5orden2();
+        this.pv.FBXbuttonsala5orden3();
+        this.pv.FBXbuttonsala5orden4();
+
+        //////////////////////////////////////
+
+        this.Extra.crearSituaciones();
+
+
     }
 
     start() {
