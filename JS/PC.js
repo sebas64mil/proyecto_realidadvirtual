@@ -104,18 +104,22 @@ export class PC {
     }
 
     checkVisibilityBasedOnDistance() {
-        const thresholdDistance = 0.5 ; // Ajusta esta distancia según lo necesario
+        const thresholdDistance = 5; // Ajusta la distancia según sea necesario
     
-        this.scene.children.forEach((child) => {
-            // Solo consideramos los objetos con un nombre que identifica modelos FBX
+        this.scene.traverse((child) => {
+            // Asegúrate de que el objeto tiene un nombre y verifica si es relevante
             if (child.name && child.name.startsWith('FBX')) {
-                const distance = this.camera.position.distanceTo(child.position);
+                const objectWorldPosition = new THREE.Vector3();
+                child.getWorldPosition(objectWorldPosition);
     
-                // Mostrar/ocultar en función de la distancia
+                const distance = this.camera.position.distanceTo(objectWorldPosition);
+    
+                // Mostrar/ocultar el objeto basado en la distancia
                 child.visible = distance <= thresholdDistance;
             }
         });
     }
+    
     
     
     
