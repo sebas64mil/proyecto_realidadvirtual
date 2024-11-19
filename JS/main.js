@@ -17,20 +17,25 @@ class Main {
         this.pm = new PM();
     }
 
-   // cubemap() {
-       // const path = ''; 
-       // const format = '.jpg';   
-       // const urls = [
-        //    path + 'Textures/posx.jpg' + format, path + 'Textures/negx.jpg' + format,
-        //    path + 'Textures/posy.jpg' + format, path + 'Textures/negy.jpg' + format,
-       //     path + 'Textures/posz.jpg' + format, path + 'Textures/negz.jpg' + format
-     //   ];
-
-   //     const cubeTextureLoader = new THREE.CubeTextureLoader();
-   //     cubeTextureLoader.load(urls, (cubeTexture) => {
-   //         this.scene.background = cubeTexture;  // Asegúrate de usar this.scene
-   //     });
-   // }
+    cubemap() {
+        const path = ''; // Deja el path vacío si las texturas están en la raíz
+        const format = '.jpg'; // Solo agrega la extensión una vez
+    
+        // Las rutas de las texturas deben ser correctas sin doble extensión
+        const urls = [
+            path + 'Textures/posx' + format, 
+            path + 'Textures/negx' + format,
+            path + 'Textures/posy' + format, 
+            path + 'Textures/negy' + format,
+            path + 'Textures/posz' + format, 
+            path + 'Textures/negz' + format
+        ];
+    
+        const cubeTextureLoader = new THREE.CubeTextureLoader();
+        cubeTextureLoader.load(urls, (cubeTexture) => {
+            this.scene.background = cubeTexture;  // Asegúrate de usar this.scene
+        });
+    }
 
     init() {
         // Configurar escena
