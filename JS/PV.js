@@ -417,7 +417,46 @@ export class PV {
         );
     }
     
+    FBXbuttonSala2() {
+        const loader = new FBXLoader();
+        const textureLoader = new THREE.TextureLoader();
+    
+        // Cargar la textura
+        const texturePath = 'Textures/portal_button_blue.jpeg';
+        const texture = textureLoader.load(texturePath);
+    
+        // Cargar el modelo FBX
+        loader.load(
+            'modelos3d/portal 2 button.fbx', // Ruta al archivo FBX
+            (fbx) => {
+                // Asignar nombre al modelo para identificación
+    
+                // Aplicar la textura a los materiales del modelo
+                fbx.traverse((child) => {
+                    if (child.isMesh) {
+                        child.name = "FBXbotonEstrovertido"; 
+                        child.material = new THREE.MeshStandardMaterial({
+                            map: texture,
+                            side: THREE.DoubleSide
+                        });
+                    }
+                });
+    
+                // Escalar y posicionar el modelo
+                fbx.scale.set(0.003, 0.003, 0.003);
+                fbx.position.set(2, 12, 0);
+    
+                // Añadir el modelo a la escena
+                this.scene.add(fbx);
+            },
+            (xhr) => {
+                console.log("portalButton cargado correctamente");
+            },
+            (error) => {
+                console.error('Error al cargar el modelo FBX:', error);
+            }
+        );
+    }
     
     
- 
 }
