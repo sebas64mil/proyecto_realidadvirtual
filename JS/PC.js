@@ -59,14 +59,12 @@ export class PC {
             const intersectedObject = intersects[0].object;
     
             if (intersectedObject.name === 'portalButton') { // Verificar si el objeto tocado es el botón
-                // Comprobar si el botón 'X' (índice 0) o 'A' está presionado
-                if (this.gamepad && this.gamepad.buttons[0].pressed) {
-                    console.log("Botón X o A presionado"); // Aquí se puede ejecutar alguna lógica
+                
+
                     // Si quieres que el dispositivo vibre al presionar el botón
                     if (window.navigator.vibrate) {
                         window.navigator.vibrate(200); // Vibrar por 200ms
                     }
-                }
             }
         }
     }
