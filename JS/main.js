@@ -60,6 +60,8 @@ class Main {
         this.pv.FBXbutton();
         this.pv.FBXbuttonSalaE2();
         this.pv.FBXbuttonSalaI2();
+        this.pv.FBXbuttonSalaSen3();
+        this.pv.FBXbuttonSalaIn3();
     }
 
     start() {
