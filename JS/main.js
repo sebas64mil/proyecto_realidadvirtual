@@ -69,6 +69,8 @@ class Main {
         // Inicializar PV (geometrías)
         this.pv = new PV(this.scene);
 
+        this.Extra = new Extras(this.scene)
+
         // Añadir geometrías
         this.pv.FBXcuarto1();
         this.pv.FBXpasillo1();
