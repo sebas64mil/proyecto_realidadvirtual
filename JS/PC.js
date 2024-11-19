@@ -76,12 +76,24 @@ export class PC {
             // Recorremos la jerarquía hacia arriba buscando el objeto principal
             while (intersectedObject.parent) {
                 if (intersectedObject.name === "portalButton") {
-                    console.log("El objeto colisionado es el portalButton");
+                    // Verificar si un gamepad está conectado
+                    const gamepads = navigator.getGamepads();
+                    if (gamepads && gamepads[0]) {
+                        const gamepad = gamepads[0];
     
-                    // Vibración en el dispositivo móvil
-                    if (navigator.vibrate) {
-                        navigator.vibrate(200);
+                        // Verificar si se presionó un botón específico (por ejemplo, el botón 0)
+                        if (gamepad.buttons[0].pressed) {
+                            console.log("El objeto colisionado es el portalButton y se presionó el botón del gamepad");
+    
+                            // Vibración en el dispositivo móvil
+                            if (navigator.vibrate) {
+                                navigator.vibrate(200);
+                            }
+                            return;
+                        }
                     }
+    
+                    console.log("El objeto colisionado es el portalButton, pero no se presionó el botón del gamepad");
                     return;
                 }
                 intersectedObject = intersectedObject.parent;
@@ -90,6 +102,7 @@ export class PC {
             console.log("El objeto colisionado no es el portalButton");
         }
     }
+    
     
     
     
