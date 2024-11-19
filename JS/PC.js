@@ -136,7 +136,7 @@ export class PC {
 
     checkVisibilityBasedOnDistance() {
         const thresholdDistance = 2.5; // Ajusta la distancia según sea necesario
-    
+        const thresholdDistance1 = 7;
         this.scene.traverse((child) => {
             // Asegúrate de que el objeto tiene un nombre y verifica si es relevante
             if (child.name && child.name.startsWith('FBX')) {
@@ -147,6 +147,16 @@ export class PC {
     
                 // Mostrar/ocultar el objeto basado en la distancia
                 child.visible = distance <= thresholdDistance;
+            }
+
+            if (child.name && child.name.startsWith('FBXA')) {
+                const objectWorldPosition = new THREE.Vector3();
+                child.getWorldPosition(objectWorldPosition);
+    
+                const distance = this.cameraContainer.position.distanceTo(objectWorldPosition);
+    
+                // Mostrar/ocultar el objeto basado en la distancia
+                child.visible = distance <= thresholdDistance1;
             }
         });
     }
