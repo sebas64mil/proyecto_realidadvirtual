@@ -1,10 +1,7 @@
 import * as THREE from 'three';
-import { PV } from './PV.js';
 
-
-export class PC extends PV{
+export class PC {
     constructor(camera, scene) {
-        super()
         this.camera = camera; // Cámara proporcionada por WebXR
         this.scene = scene;
         this.raycaster = new THREE.Raycaster();
@@ -13,12 +10,10 @@ export class PC extends PV{
         // Crear un contenedor para la cámara, lo que permitirá mover la cámara dentro del contenedor
         this.cameraContainer = new THREE.Object3D();
         this.camera.position.set(0, 0, 0.0)
-        this.camera.rotation.y=THREE.MathUtils.degToRad(180)
+        this.camera.rotation.y = THREE.MathUtils.degToRad(180)
         this.cameraContainer.add(this.camera); // Añadimos la cámara al contenedor
         this.scene.add(this.cameraContainer);
-        this.cameraContainer.position.set(0, 4.6, 0.0) // Añadimos el contenedor a la escena
-
-        this.verificar=[this.FBXcuarto1,this.FBXcuarto2,this.FBXcuarto3,this.FBXcuarto4,this.FBXcuarto5,this.FBXpasillo1,this.FBXpasillo2,this.FBXpasillo3,this.FBXpasillo4]
+        this.cameraContainer.position.set(0, 4.6, 0.0); // Añadimos el contenedor a la escena
     }
 
     move() {
@@ -47,23 +42,13 @@ export class PC extends PV{
                         const firstHit = intersects[0]; // Primera intersección
                         const distance = firstHit.distance;
     
-                        // Si la distancia al objeto es menor a 2
+                        // Si la distancia al objeto es menor a 2, detener el movimiento
                         if (distance < 2) {
-                            const hitObject = firstHit.object;
-    
-                            // Buscar en `verificar` el método correspondiente al objeto impactado
-                            for (let method of this.verificar) {
-                                // Llamar al método si coincide con el objeto impactado
-                                const modelName = method.name; // Suponiendo que el método está relacionado con un nombre de objeto
-                                if (hitObject.name === modelName) {
-                                    method.call(this); // Llamar al método
-                                    return; // No permitas movimiento adicional
-                                }
-                            }
+                            return; // No permitas movimiento adicional
                         }
                     }
     
-                    // Si no se encuentra ninguna intersección significativa, permitir el movimiento
+                    // Si no hay colisión o la distancia es mayor a 2, permitir el movimiento
                     const forwardMovement = new THREE.Vector3(
                         direction.x * moveAxisY * -0.01, // Movimiento adelante/atrás
                         0,
@@ -74,9 +59,4 @@ export class PC extends PV{
             }
         }
     }
-    
-
-    
-    
-    
 }
