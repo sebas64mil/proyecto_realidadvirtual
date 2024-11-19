@@ -69,7 +69,11 @@ class Main {
         // Inicializar PV (geometrías)
         this.pv = new PV(this.scene);
 
-        this.Extra = new Extras(this.scene)
+    // Inicializar Extras
+    this.Extra = new Extras(this.scene);
+
+    // Llamar al método crearSituaciones
+    this.Extra.crearSituaciones();
 
         // Añadir geometrías
         this.pv.FBXcuarto1();
