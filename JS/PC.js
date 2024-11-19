@@ -25,15 +25,16 @@ export class PC {
 
                 // Si estamos moviendo el eje, calculamos la dirección en la que está mirando la cámara
                 if (moveAxis !== 0) {
-                    // Raycast desde la cámara para determinar hacia dónde estamos mirando
-                    this.raycaster.update(this.camera.position, this.camera.getWorldDirection(new THREE.Vector3()));
-
-                    // Obtener la dirección de movimiento
+                    // Obtener la dirección de movimiento de la cámara
                     const direction = this.camera.getWorldDirection(new THREE.Vector3()).normalize();
 
-                    // Mover el contenedor en la dirección de la cámara (eje Z)
+                    // Raycast desde la cámara para determinar hacia dónde estamos mirando
+                    // Establecer el origen y la dirección del rayo
+                    this.raycaster.set(this.camera.position, direction);
+
+                    // Calcular el movimiento del contenedor de la cámara
                     const movement = direction.multiplyScalar(moveAxis * 0.1); // Ajustar velocidad
-                    this.cameraContainer.position.add(movement);
+                    this.cameraContainer.position.add(movement); // Mover el contenedor
                 }
             }
         }
