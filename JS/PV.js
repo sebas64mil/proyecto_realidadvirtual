@@ -342,6 +342,7 @@ export class PV {
             (fbx) => {
                 // Aplicar la textura a los materiales del modelo
                 fbx.traverse((child) => {
+                    child.name = "portalButton"; 
                     if (child.isMesh) {
                         child.material = new THREE.MeshStandardMaterial({
                             map: texture,
@@ -353,7 +354,7 @@ export class PV {
                 // Escalar y posicionar el modelo
                 fbx.scale.set(-0.1, 0.1, 0.1);
                 fbx.position.set(0, 6, 7.6);
-                fbx.name = "Cuarto";
+                
 
 
                 // Añadir el modelo a la escena

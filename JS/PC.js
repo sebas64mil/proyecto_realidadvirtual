@@ -74,7 +74,7 @@ export class PC {
             const intersectedObject = intersects[intersects.length - 1].object;
         
             // Verificamos si el objeto colisionado tiene el nombre "portalButton"
-            if (intersectedObject.name === "portalButton") {
+            if (intersectedObject.name == "portalButton") {
                 console.log("El objeto colisionado es el portalButton");
     
                 // Vibración en el dispositivo móvil
