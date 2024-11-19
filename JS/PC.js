@@ -54,6 +54,22 @@ export class PC {
             }
         }
     }
+
+    canMove() {
+        // Configurar el raycaster desde la cámara
+        this.raycaster.set(this.camera.getWorldPosition(new THREE.Vector3()), this.camera.getWorldDirection(new THREE.Vector3()));
+
+        // Obtener objetos en la escena
+        const intersects = this.raycaster.intersectObjects(this.scene.children, true);
+
+        // Revisar colisiones con objetos específicos
+        for (const intersect of intersects) {
+            if (intersect.distance <= 1 && (intersect.object.name === "Cuarto" || intersect.object.name === "Pasillo")) {
+                return false; // Bloquear movimiento
+            }
+        }
+        return true; // Permitir movimiento
+    }
     
     
 }

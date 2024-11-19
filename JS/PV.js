@@ -67,6 +67,7 @@ export class PV {
                 // Escalar y posicionar el modelo
                 fbx.scale.set(-0.1, 0.1, 0.1);
                 fbx.position.set(0, 6, 0);
+                fbx.name = "Cuarto";
 
                 // Añadir el modelo a la escena
                 this.scene.add(fbx);
@@ -105,6 +106,7 @@ export class PV {
                 // Escalar y posicionar el modelo
                 fbx.scale.set(-0.1, 0.1, 0.1);
                 fbx.position.set(0, 6, 0);
+                fbx.name = "Pasillo";
 
                 // Añadir el modelo a la escena
                 this.scene.add(fbx);
@@ -142,6 +144,7 @@ export class PV {
                 // Escalar y posicionar el modelo
                 fbx.scale.set(-0.1, 0.1, 0.1);
                 fbx.position.set(0, 6, 2.4);
+                fbx.name = "Cuarto";
 
                 // Añadir el modelo a la escena
                 this.scene.add(fbx);
@@ -179,6 +182,8 @@ export class PV {
                 // Escalar y posicionar el modelo
                 fbx.scale.set(-0.1, 0.1, 0.1);
                 fbx.position.set(0, 6, 2.4);
+                fbx.name = "Pasillo";
+
 
                 // Añadir el modelo a la escena
                 this.scene.add(fbx);
@@ -216,6 +221,8 @@ export class PV {
                 // Escalar y posicionar el modelo
                 fbx.scale.set(-0.1, 0.1, 0.1);
                 fbx.position.set(0, 6, 4.8);
+                fbx.name = "Cuarto";
+
 
                 // Añadir el modelo a la escena
                 this.scene.add(fbx);
@@ -253,6 +260,8 @@ export class PV {
                 // Escalar y posicionar el modelo
                 fbx.scale.set(-0.1, 0.1, 0.1);
                 fbx.position.set(0, 6, 4.8);
+                fbx.name = "Pasillo";
+
 
                 // Añadir el modelo a la escena
                 this.scene.add(fbx);
@@ -290,6 +299,8 @@ export class PV {
                 // Escalar y posicionar el modelo
                 fbx.scale.set(-0.1, 0.1, 0.1);
                 fbx.position.set(0, 6, 7.2);
+                fbx.name = "Cuarto";
+
 
                 // Añadir el modelo a la escena
                 this.scene.add(fbx);
@@ -327,6 +338,8 @@ export class PV {
                 // Escalar y posicionar el modelo
                 fbx.scale.set(-0.1, 0.1, 0.1);
                 fbx.position.set(0, 6, 7.2);
+                fbx.name = "Pasillo";
+
 
                 // Añadir el modelo a la escena
                 this.scene.add(fbx);
@@ -365,6 +378,8 @@ export class PV {
                 // Escalar y posicionar el modelo
                 fbx.scale.set(-0.1, 0.1, 0.1);
                 fbx.position.set(0, 6, 7.6);
+                fbx.name = "Cuarto";
+
 
                 // Añadir el modelo a la escena
                 this.scene.add(fbx);
