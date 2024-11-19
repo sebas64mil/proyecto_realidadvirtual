@@ -36,8 +36,7 @@ class Main {
     
         // Inicializar PV (geometrías) y PC (control de VR)
         this.pv = new PV(this.scene);
-        this.pc = new PC(this.cameraContainer, this.scene); // Pasar el contenedor al controlador
-    
+        this.pc = new PC(this.cameraContainer, this.scene);     
         // Añadir geometrías
         this.pv.addGreenCube();
         this.pv.Paredroja();

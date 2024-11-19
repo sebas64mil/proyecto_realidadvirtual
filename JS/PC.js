@@ -30,7 +30,7 @@ export class PC {
     
             // Calcular dirección en el plano XZ
             const direction = new THREE.Vector3();
-            this.camera.getWorldDirection(direction);
+            this.camera.children[0].getWorldDirection(direction); // Usar la cámara VR contenida en el contenedor
             direction.y = 0; // Restringir movimiento al plano XZ
             direction.normalize();
     
@@ -40,6 +40,8 @@ export class PC {
         }
     
         // Configurar el raycaster
-        this.raycaster.set(this.camera.position, this.camera.getWorldDirection(new THREE.Vector3()));
+        this.raycaster.set(this.camera.position, this.camera.children[0].getWorldDirection(new THREE.Vector3()));
     }
+    
+    
 }
