@@ -19,7 +19,7 @@ export class PC {
 
         this.PV= new PV(scene);
 
-        this.PM = new PM();
+        this.PM = new PM(scene);
     }
 
     move() {

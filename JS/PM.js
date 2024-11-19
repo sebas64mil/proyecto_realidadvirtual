@@ -28,9 +28,10 @@ export class PM {
                 // Material del texto
                 const material = new THREE.MeshBasicMaterial({ color: 0xffffff });
                 const text = new THREE.Mesh(geometry, material);
+                text.name = 'FBXbotonInicio';
 
                 // Posicionar el texto en la escena
-                text.position.set(0, 4.6, -1);
+                text.position.set(0, 4.6, 0);
                 this.scene.add(text);
             });
         }
