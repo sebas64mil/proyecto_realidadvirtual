@@ -104,7 +104,7 @@ export class PC {
     }
 
     checkVisibilityBasedOnDistance() {
-        const thresholdDistance = 10 ; // Ajusta esta distancia según lo necesario
+        const thresholdDistance = 3 ; // Ajusta esta distancia según lo necesario
     
         this.scene.children.forEach((child) => {
             // Solo consideramos los objetos con un nombre que identifica modelos FBX
