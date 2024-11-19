@@ -13,7 +13,7 @@ export class Extras {
 
         const material_opcion1 = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
         const opcion1 = new THREE.Mesh( geometry_situaciones, material_opcion1 );
-        opcion1.position.set(-0.54,6.3,0)
+        opcion1.position.set(-0.7,6.5,0)
         opcion1.rotation.y=THREE.MathUtils.degToRad(90);
 
         this.scene.add( opcion1 );
