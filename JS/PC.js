@@ -49,15 +49,15 @@ export class PC {
                         const distance = firstHit.distance;
     
                         // Verificar si el objeto intersectado tiene "cuarto" o "pasillo" en su nombre
-                        if (firstHit.object.name && 
-                            (firstHit.object.name.includes("cuarto") || firstHit.object.name.includes("pasillo"))) {
-                            console.log("Colisión con objeto que contiene 'cuarto' o 'pasillo', movimiento detenido");
-                            return; // Detener movimiento si se colide con uno de esos objetos
-                        }
+
     
                         // Si la distancia al objeto es menor a 0.25, detener el movimiento
                         if (distance < 0.25) {
-                            return; // No permitas movimiento adicional
+                            if (firstHit.object.name && 
+                                (firstHit.object.name.includes("cuarto") || firstHit.object.name.includes("pasillo"))) {
+                                console.log("Colisión con objeto que contiene 'cuarto' o 'pasillo', movimiento detenido");
+                                return; // Detener movimiento si se colide con uno de esos objetos
+                            }
                         }
                     }
     
