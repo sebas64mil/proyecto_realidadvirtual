@@ -48,13 +48,20 @@ export class PC {
                         const firstHit = intersects[0]; // Primera intersección
                         const distance = firstHit.distance;
     
-                        // Si la distancia al objeto es menor a 2, detener el movimiento
+                        // Verificar si el objeto intersectado tiene "cuarto" o "pasillo" en su nombre
+                        if (firstHit.object.name && 
+                            (firstHit.object.name.includes("cuarto") || firstHit.object.name.includes("pasillo"))) {
+                            console.log("Colisión con objeto que contiene 'cuarto' o 'pasillo', movimiento detenido");
+                            return; // Detener movimiento si se colide con uno de esos objetos
+                        }
+    
+                        // Si la distancia al objeto es menor a 0.25, detener el movimiento
                         if (distance < 0.25) {
                             return; // No permitas movimiento adicional
                         }
                     }
     
-                    // Si no hay colisión o la distancia es mayor a 2, permitir el movimiento
+                    // Si no hay colisión o la distancia es mayor a 0.25, permitir el movimiento
                     const forwardMovement = new THREE.Vector3(
                         direction.x * moveAxisY * -0.01, // Movimiento adelante/atrás
                         0,
@@ -65,6 +72,7 @@ export class PC {
             }
         }
     }
+    
 
     
 

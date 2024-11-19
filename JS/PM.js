@@ -8,7 +8,7 @@ export class PM {
     createText(Boton) {
         if (Boton === "inicio") {
             // Crear un plano en lugar de texto
-            const geometry = new THREE.PlaneGeometry(4, 2); // Tamaño del plano (ajústalo según lo que necesites)
+            const geometry = new THREE.PlaneGeometry(0.5, 0.5); // Tamaño del plano (ajústalo según lo que necesites)
             const material = new THREE.MeshBasicMaterial({ color: 0x00ff00, side: THREE.DoubleSide }); // Material del plano, en este caso un color sólido
 
             const plane = new THREE.Mesh(geometry, material);
