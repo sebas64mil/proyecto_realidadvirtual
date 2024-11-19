@@ -115,7 +115,7 @@ class Main {
             this.renderer.render(this.scene, this.camera);
 
             // Llamar a la función cubemap para actualizar el fondo
-            this.cubemap();
+            //this.cubemap();
         });
     }
 }
