@@ -55,7 +55,7 @@ class Main {
             this.pc.handleVRMovement();
 
             // Renderizar escena
-            this.renderer.render(this.scene, this.camera);
+            this.renderer.render(this.scene, this.renderer.xr.getCamera(this.camera));
         });
     }
 }
