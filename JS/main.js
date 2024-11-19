@@ -12,6 +12,7 @@ class Main {
         this.pv = null;
         this.pc = null;
         this.pm = new PM();
+        this.isVRMode = false; // Nueva variable para detectar si estamos en VR
     }
 
     init() {
@@ -26,7 +27,10 @@ class Main {
         document.body.appendChild(this.renderer.domElement);
     
         // Agregar botón VR
-        document.body.appendChild(VRButton.createButton(this.renderer));
+        document.body.appendChild(VRButton.createButton(this.renderer, () => {
+            // Aquí manejamos la activación/desactivación del VR
+            this.isVRMode = !this.isVRMode; // Cambiar entre modo VR y normal
+        }));
     
         // Configurar cámara y su contenedor
         this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -48,13 +52,14 @@ class Main {
         // Render loop
         this.renderer.setAnimationLoop(() => {
             // Manejo del control de VR
-            this.pc.handleVRMovement();
+            this.pc.handleVRMovement(this.isVRMode); // Pasamos el estado de VR
 
             // Renderizar escena
             this.renderer.render(this.scene, this.camera);
         });
     }
 }
+
 
 // Crear instancia de Main y ejecutar
 const app = new Main();
