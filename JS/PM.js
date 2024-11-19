@@ -15,7 +15,7 @@ export class PM {
             loader.load('fonts/helvetiker_regular.typeface.json', (font) => {
                 const geometry = new THREE.TextGeometry('Continuar', {
                     font: font,
-                    size: 5,
+                    size: 1.5,
                     height: 1,
                     curveSegments: 12,
                     bevelEnabled: true,
