@@ -10,7 +10,8 @@ export class PC {
         // Crear un contenedor para la cámara, lo que permitirá mover la cámara dentro del contenedor
         this.cameraContainer = new THREE.Object3D();
         this.cameraContainer.add(this.camera); // Añadimos la cámara al contenedor
-        this.scene.add(this.cameraContainer); // Añadimos el contenedor a la escena
+        this.scene.add(this.cameraContainer);
+        this.cameraContainer.position.set(0, 0.3, 0.8) // Añadimos el contenedor a la escena
     }
 
     move() {

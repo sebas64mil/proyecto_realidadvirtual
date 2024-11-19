@@ -32,15 +32,14 @@ class Main {
         document.body.appendChild(VRButton.createButton(this.renderer));
     
         // Configurar cámara y su contenedor
-        this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        this.camera.position.set(0, 0.3, 0.8); // Posicionar la cámara inicialmente
+        this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);// Posicionar la cámara inicialmente
     
         // Configurar OrbitControls
-        this.controls = new OrbitControls(this.camera, this.renderer.domElement);
-        this.controls.enableDamping = true; // Activar amortiguación para movimientos suaves
-        this.controls.dampingFactor = 0.05; // Factor de amortiguación
-        this.controls.enableZoom = true; // Permitir zoom con la rueda del ratón
-        this.controls.target.set(0, 0, 0); // Apuntar al centro de la escena
+        // this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+        // this.controls.enableDamping = true; // Activar amortiguación para movimientos suaves
+        // this.controls.dampingFactor = 0.05; // Factor de amortiguación
+        // this.controls.enableZoom = true; // Permitir zoom con la rueda del ratón
+        // this.controls.target.set(0, 0, 0); // Apuntar al centro de la escena
 
         // Inicializar PC (control de gamepad)
         this.pc = new PC(this.camera, this.scene);
