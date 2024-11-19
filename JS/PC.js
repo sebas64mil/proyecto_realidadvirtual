@@ -53,11 +53,11 @@ export class PC {
     Comprobar() {
         // Realizamos el raycast para detectar las colisiones
         const intersects = this.raycaster.intersectObjects(this.scene.children, true); // Asegúrate de recorrer todos los objetos hijos
-    
+        
         if (intersects.length > 0) {
-            // Accedemos al primer objeto con el que ha colisionado
-            const intersectedObject = intersects[0].object;
-    
+            // Accedemos al último objeto con el que ha colisionado
+            const intersectedObject = intersects[intersects.length - 1].object;
+        
             // Verificamos si el objeto colisionado tiene el nombre "portalButton"
             if (intersectedObject.name === "portalButton") {
                 console.log("El objeto colisionado es el portalButton");
@@ -71,6 +71,7 @@ export class PC {
             }
         } 
     }
+    
     
 
 }
