@@ -407,7 +407,7 @@ export class PV {
             'modelos3d/portal 2 button.fbx', // Ruta al archivo FBX
             (fbx) => {
                 // Asignar nombre al modelo para identificación
-                fbx.name = 'portalButton'; // Nombre único del objeto
+                fbx.name = "portalButton"; // Asignamos un nombre al objeto FBX
     
                 // Aplicar la textura a los materiales del modelo
                 fbx.traverse((child) => {
@@ -427,13 +427,15 @@ export class PV {
                 this.scene.add(fbx);
             },
             (xhr) => {
-                console.log((xhr.loaded / xhr.total) * 100 + '% cargado');
+                console.log("portalButton cargado correctamente");
             },
             (error) => {
                 console.error('Error al cargar el modelo FBX:', error);
             }
         );
     }
+    
+    
     
  
 }

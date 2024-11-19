@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { PV } from './PV.js';
 
 export class PC {
     constructor(camera, scene) {
@@ -14,6 +15,8 @@ export class PC {
         this.cameraContainer.add(this.camera); // Añadimos la cámara al contenedor
         this.scene.add(this.cameraContainer);
         this.cameraContainer.position.set(0, 4.6, 0.0); // Añadimos el contenedor a la escena
+
+        this.PV= new PV(scene);
     }
 
     move() {
@@ -38,34 +41,36 @@ export class PC {
                     // Crear un rayo para detectar colisiones
                     this.raycaster.ray.origin.copy(this.cameraContainer.position);
                     this.raycaster.ray.direction.copy(movement);
-        
-                    // Llamar al método para comprobar la colisión con el botón
-                    this.checkButtonCollision();
-        
-                    // Si no hay colisión, mover la cámara
-                    const intersects = this.raycaster.intersectObjects(this.scene.children);
-                    if (intersects.length === 0) {
-                        this.cameraContainer.position.add(movement);
-                    }
+
+                    
                 }
             }
         }
+
+        
     }
 
-    checkButtonCollision() {
-        const intersects = this.raycaster.intersectObjects(this.scene.children);
+    Comprobar() {
+        // Realizamos el raycast para detectar las colisiones
+        const intersects = this.raycaster.intersectObjects(this.scene.children, true); // Asegúrate de recorrer todos los objetos hijos
     
         if (intersects.length > 0) {
+            // Accedemos al primer objeto con el que ha colisionado
             const intersectedObject = intersects[0].object;
     
-            if (intersectedObject.name === 'portalButton') { // Verificar si el objeto tocado es el botón
-                
-
-                    // Si quieres que el dispositivo vibre al presionar el botón
-                    if (window.navigator.vibrate) {
-                        window.navigator.vibrate(200); // Vibrar por 200ms
-                    }
+            // Verificamos si el objeto colisionado tiene el nombre "portalButton"
+            if (intersectedObject.name === "portalButton") {
+                console.log("El objeto colisionado es el portalButton");
+    
+                // Vibración en el dispositivo móvil
+                if (navigator.vibrate) {
+                    navigator.vibrate(200);
+                }
+            } else {
+                console.log("El objeto colisionado no es el portalButton");
             }
-        }
+        } 
     }
+    
+
 }
