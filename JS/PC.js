@@ -105,9 +105,9 @@ export class PC {
                             let Boton = "inicio";
     
                             // Llamar al método para crear el plano directamente
-                            if (this.PV && this.PV.PM) {
-                                this.PV.PM.createText(Boton); // Crear el plano en lugar de solo cambiar el valor de Boton
-                            }
+
+                                this.PM.createText(Boton); // Crear el plano en lugar de solo cambiar el valor de Boton
+ 
     
                             return;
                         }
