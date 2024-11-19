@@ -67,28 +67,30 @@ export class PC {
 
     Comprobar() {
         // Realizamos el raycast para detectar las colisiones
-        const intersects = this.raycaster.intersectObjects(this.scene.children, true); // Asegúrate de recorrer todos los objetos hijos
-        
-        if (intersects.length > 0) {
-            // Accedemos al último objeto con el que ha colisionado
-            const intersectedObject = intersects[intersects.length - 1].object;
-        
-            // Verificamos si el objeto colisionado tiene el nombre "portalButton"
-            if (intersectedObject.name == "portalButton") {
-                console.log("El objeto colisionado es el portalButton");
+        const intersects = this.raycaster.intersectObjects(this.scene.children, true);
     
-                // Vibración en el dispositivo móvil
-                if (navigator.vibrate) {
-                    navigator.vibrate(200);
+        if (intersects.length > 0) {
+            // Accedemos al objeto intersectado
+            let intersectedObject = intersects[0].object;
+    
+            // Recorremos la jerarquía hacia arriba buscando el objeto principal
+            while (intersectedObject.parent) {
+                if (intersectedObject.name === "portalButton") {
+                    console.log("El objeto colisionado es el portalButton");
+    
+                    // Vibración en el dispositivo móvil
+                    if (navigator.vibrate) {
+                        navigator.vibrate(200);
+                    }
+                    return;
                 }
-            } else {
-                console.log("El objeto colisionado no es el portalButton");
-                if (navigator.vibrate) {
-                    
-                }
+                intersectedObject = intersectedObject.parent;
             }
-        } 
+    
+            console.log("El objeto colisionado no es el portalButton");
+        }
     }
+    
     
     
 
