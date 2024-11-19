@@ -75,7 +75,7 @@ export class PC {
     
             // Recorremos la jerarquía hacia arriba buscando el objeto principal
             while (intersectedObject.parent) {
-                if (intersectedObject.name === "portalButton") {
+                if (intersectedObject.name === "FBXportalButton") {
                     // Verificar si un gamepad está conectado
                     const gamepads = navigator.getGamepads();
                     if (gamepads && gamepads[0]) {
@@ -112,7 +112,7 @@ export class PC {
                 const objectWorldPosition = new THREE.Vector3();
                 child.getWorldPosition(objectWorldPosition);
     
-                const distance = this.camera.position.distanceTo(objectWorldPosition);
+                const distance = this.cameraContainer.position.distanceTo(objectWorldPosition);
     
                 // Mostrar/ocultar el objeto basado en la distancia
                 child.visible = distance <= thresholdDistance;

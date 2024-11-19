@@ -393,7 +393,7 @@ export class PV {
                 // Aplicar la textura a los materiales del modelo
                 fbx.traverse((child) => {
                     if (child.isMesh) {
-                        child.name = "portalButton"; 
+                        child.name = "FBXportalButton"; 
                         child.material = new THREE.MeshStandardMaterial({
                             map: texture,
                             side: THREE.DoubleSide
