@@ -46,7 +46,7 @@ export class PC {
                         const distance = firstHit.distance;
     
                         // Si la distancia al objeto es menor a 2, detener el movimiento
-                        if (distance < 0.5) {
+                        if (distance < 0.05) {
                             return; // No permitas movimiento adicional
                         }
                     }
