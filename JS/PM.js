@@ -15,7 +15,7 @@ export class PM {
             plane.name = 'FBXbotonInicio'; // Nombre del objeto para la detección de raycast
 
             // Posicionar el plano en la escena
-            plane.position.set(0, 6, 0); // Ajusta la posición como sea necesario
+            plane.position.set(0, 6.5, 0); // Ajusta la posición como sea necesario
             this.scene.add(plane);
         }
     }
