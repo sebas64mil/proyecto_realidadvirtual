@@ -48,8 +48,6 @@ class Main {
         this.pv = new PV(this.scene);
 
         // Añadir geometrías
-        this.pv.addGreenCube();
-        this.pv.Paredroja();
         this.pv.FBXcuarto1();
         this.pv.FBXpasillo1();
         this.pv.FBXcuarto2();
@@ -72,7 +70,7 @@ class Main {
 
             // Aquí gestionamos la lógica según si estamos en VR o no
             this.pc.move();
-            //this.pc.Comprobar();// Mover el objeto 3D según el gamepad
+            this.pc.Comprobar();// Mover el objeto 3D según el gamepad
 
             // Renderizar la escena con la cámara
             this.renderer.render(this.scene, this.camera);
