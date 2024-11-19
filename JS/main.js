@@ -17,10 +17,25 @@ class Main {
         this.pm = new PM();
     }
 
+   // cubemap() {
+       // const path = ''; 
+       // const format = '.jpg';   
+       // const urls = [
+        //    path + 'Textures/posx.jpg' + format, path + 'Textures/negx.jpg' + format,
+        //    path + 'Textures/posy.jpg' + format, path + 'Textures/negy.jpg' + format,
+       //     path + 'Textures/posz.jpg' + format, path + 'Textures/negz.jpg' + format
+     //   ];
+
+   //     const cubeTextureLoader = new THREE.CubeTextureLoader();
+   //     cubeTextureLoader.load(urls, (cubeTexture) => {
+   //         this.scene.background = cubeTexture;  // Asegúrate de usar this.scene
+   //     });
+   // }
+
     init() {
         // Configurar escena
         this.scene = new THREE.Scene();
-        this.scene.background = new THREE.Color(0x000000);
+        this.scene.background = new THREE.Color(0x000000); // Fondo inicial (negro)
     
         // Configurar renderer con soporte VR
         this.renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -32,9 +47,9 @@ class Main {
         document.body.appendChild(VRButton.createButton(this.renderer));
     
         // Configurar cámara y su contenedor
-        this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);// Posicionar la cámara inicialmente
+        this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000); // Posicionar la cámara inicialmente
     
-        // Configurar OrbitControls
+        // Configurar OrbitControls (comentado por si quieres habilitarlo)
         // this.controls = new OrbitControls(this.camera, this.renderer.domElement);
         // this.controls.enableDamping = true; // Activar amortiguación para movimientos suaves
         // this.controls.dampingFactor = 0.05; // Factor de amortiguación
@@ -66,7 +81,7 @@ class Main {
         // Render loop
         this.renderer.setAnimationLoop((time, frame) => {
             // Actualizar los controles de órbita
-            //this.controls.update();
+            // this.controls.update();
 
             // Aquí gestionamos la lógica según si estamos en VR o no
             this.pc.move();
@@ -75,6 +90,9 @@ class Main {
 
             // Renderizar la escena con la cámara
             this.renderer.render(this.scene, this.camera);
+
+            // Llamar a la función cubemap para actualizar el fondo
+            this.cubemap();
         });
     }
 }
