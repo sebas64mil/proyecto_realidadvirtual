@@ -101,17 +101,15 @@ export class PC {
                                 navigator.vibrate(200);
                             }
     
-                            // Establecer el valor de Boton y pasar a PM
+                            // Establecer el valor de Boton
                             let Boton = "inicio";
     
-                            // Pasar la variable 'Boton' a la clase PM
+                            // Llamar al método para crear el plano directamente
                             if (this.PV && this.PV.PM) {
-                                this.PV.PM.updateBoton(Boton);
+                                this.PV.PM.createText(Boton); // Crear el plano en lugar de solo cambiar el valor de Boton
                             }
     
                             return;
-                        } else if (this.buttonPressed) {
-                            console.log("El botón ya fue presionado anteriormente.");
                         }
                     }
     
@@ -124,6 +122,7 @@ export class PC {
             console.log("El objeto colisionado no es el portalButton");
         }
     }
+    
     
     
 
