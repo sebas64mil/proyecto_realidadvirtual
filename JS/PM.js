@@ -1,40 +1,22 @@
-// pm.js
-
-
 import * as THREE from 'three';
-import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 
 export class PM {
     constructor(scene) {
-        this.scene = scene;  // Escena a la que se le añadirá el texto
+        this.scene = scene;  // Escena a la que se le añadirá el plano
     }
 
     createText(Boton) {
         if (Boton === "inicio") {
-            // Usamos el FontLoader para cargar la fuente y crear el texto
-            const loader = new THREE.FontLoader();
-            loader.load('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json', (font) => {
-                const geometry = new THREE.TextGeometry('Continuar', {
-                    font: font,
-                    size: 1.5,
-                    height: 1,
-                    curveSegments: 12,
-                    bevelEnabled: true,
-                    bevelThickness: 10,
-                    bevelSize: 8,
-                    bevelOffset: 0,
-                    bevelSegments: 5
-                });
+            // Crear un plano en lugar de texto
+            const geometry = new THREE.PlaneGeometry(4, 2); // Tamaño del plano (ajústalo según lo que necesites)
+            const material = new THREE.MeshBasicMaterial({ color: 0x00ff00, side: THREE.DoubleSide }); // Material del plano, en este caso un color sólido
 
-                // Material del texto
-                const material = new THREE.MeshBasicMaterial({ color: 0xffffff });
-                const text = new THREE.Mesh(geometry, material);
-                text.name = 'FBXbotonInicio';
+            const plane = new THREE.Mesh(geometry, material);
+            plane.name = 'FBXbotonInicio'; // Nombre del objeto para la detección de raycast
 
-                // Posicionar el texto en la escena
-                text.position.set(0, 6, 0);
-                this.scene.add(text);
-            });
+            // Posicionar el plano en la escena
+            plane.position.set(0, 6, 0); // Ajusta la posición como sea necesario
+            this.scene.add(plane);
         }
     }
 }
