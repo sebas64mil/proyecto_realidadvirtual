@@ -102,6 +102,20 @@ export class PC {
             console.log("El objeto colisionado no es el portalButton");
         }
     }
+
+    checkVisibilityBasedOnDistance() {
+        const thresholdDistance = 10 ; // Ajusta esta distancia según lo necesario
+    
+        this.scene.children.forEach((child) => {
+            // Solo consideramos los objetos con un nombre que identifica modelos FBX
+            if (child.name && child.name.startsWith('FBX')) {
+                const distance = this.camera.position.distanceTo(child.position);
+    
+                // Mostrar/ocultar en función de la distancia
+                child.visible = distance <= thresholdDistance;
+            }
+        });
+    }
     
     
     

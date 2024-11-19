@@ -29,6 +29,7 @@ export class PV {
             (fbx) => {
                 // Aplicar la textura a los materiales del modelo
                 fbx.traverse((child) => {
+                    child.name = 'FBXcuarto1';
                     if (child.isMesh) {
                         child.material = new THREE.MeshStandardMaterial({
                             map: texture,
@@ -70,6 +71,7 @@ export class PV {
             (fbx) => {
                 // Aplicar la textura a los materiales del modelo
                 fbx.traverse((child) => {
+                    child.name = 'FBXpasillo1';
                     if (child.isMesh) {
                         child.material = new THREE.MeshStandardMaterial({
                             map: texture,
@@ -108,6 +110,7 @@ export class PV {
             (fbx) => {
                 // Aplicar la textura a los materiales del modelo
                 fbx.traverse((child) => {
+                    child.name = 'FBXcuarto2';
                     if (child.isMesh) {
                         child.material = new THREE.MeshStandardMaterial({
                             map: texture,
@@ -147,6 +150,7 @@ export class PV {
                 // Aplicar la textura a los materiales del modelo
                 fbx.traverse((child) => {
                     if (child.isMesh) {
+                        child.name = 'FBXpasillo2';
                         child.material = new THREE.MeshStandardMaterial({
                             map: texture,
                             side: THREE.DoubleSide
@@ -185,6 +189,7 @@ export class PV {
             (fbx) => {
                 // Aplicar la textura a los materiales del modelo
                 fbx.traverse((child) => {
+                    child.name = 'FBXcuarto3';
                     if (child.isMesh) {
                         child.material = new THREE.MeshStandardMaterial({
                             map: texture,
@@ -224,6 +229,7 @@ export class PV {
             (fbx) => {
                 // Aplicar la textura a los materiales del modelo
                 fbx.traverse((child) => {
+                    child.name = 'FBXpasillo3';
                     if (child.isMesh) {
                         child.material = new THREE.MeshStandardMaterial({
                             map: texture,
@@ -263,6 +269,7 @@ export class PV {
             (fbx) => {
                 // Aplicar la textura a los materiales del modelo
                 fbx.traverse((child) => {
+                    child.name = 'FBXcuarto4';
                     if (child.isMesh) {
                         child.material = new THREE.MeshStandardMaterial({
                             map: texture,
@@ -302,6 +309,7 @@ export class PV {
             (fbx) => {
                 // Aplicar la textura a los materiales del modelo
                 fbx.traverse((child) => {
+                    child.name = 'FBXpasillo4';
                     if (child.isMesh) {
                         child.material = new THREE.MeshStandardMaterial({
                             map: texture,
@@ -342,7 +350,7 @@ export class PV {
             (fbx) => {
                 // Aplicar la textura a los materiales del modelo
                 fbx.traverse((child) => {
-                    child.name = "portalButton"; 
+                    child.name = 'FBXcuarto5';
                     if (child.isMesh) {
                         child.material = new THREE.MeshStandardMaterial({
                             map: texture,
@@ -381,11 +389,11 @@ export class PV {
             'modelos3d/portal 2 button.fbx', // Ruta al archivo FBX
             (fbx) => {
                 // Asignar nombre al modelo para identificación
-                fbx.name = "portalButton"; // Asignamos un nombre al objeto FBX
     
                 // Aplicar la textura a los materiales del modelo
                 fbx.traverse((child) => {
                     if (child.isMesh) {
+                        child.name = "portalButton"; 
                         child.material = new THREE.MeshStandardMaterial({
                             map: texture,
                             side: THREE.DoubleSide
