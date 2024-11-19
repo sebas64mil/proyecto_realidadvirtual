@@ -1,7 +1,10 @@
 import * as THREE from 'three';
+import { PV } from './PV.js';
 
-export class PC {
+
+export class PC extends PV{
     constructor(camera, scene) {
+        super()
         this.camera = camera; // Cámara proporcionada por WebXR
         this.scene = scene;
         this.raycaster = new THREE.Raycaster();
@@ -14,6 +17,8 @@ export class PC {
         this.cameraContainer.add(this.camera); // Añadimos la cámara al contenedor
         this.scene.add(this.cameraContainer);
         this.cameraContainer.position.set(0, 4.6, 0.0) // Añadimos el contenedor a la escena
+
+        this.verificar=[this.FBXcuarto1,this.FBXcuarto2,this.FBXcuarto3,this.FBXcuarto4,this.FBXcuarto5,this.FBXpasillo1,this.FBXpasillo2,this.FBXpasillo3,this.FBXpasillo4]
     }
 
     move() {
@@ -27,49 +32,51 @@ export class PC {
                 const moveAxisX = this.gamepad.axes[0]; // Eje horizontal del gamepad (izquierda/derecha)
                 const moveAxisY = this.gamepad.axes[1]; // Eje vertical del gamepad (adelante/atrás)
     
-                // Si cualquiera de los ejes se mueve, calculamos la dirección en la que está mirando la cámara
+                // Si cualquiera de los ejes se mueve
                 if (moveAxisX !== 0 || moveAxisY !== 0) {
-                    // Obtener la dirección de movimiento de la cámara (solo los ejes X y Z)
+                    // Lanza un raycast para detectar colisiones
+                    const rayOrigin = new THREE.Vector3().setFromMatrixPosition(this.camera.matrixWorld);
                     const direction = this.camera.getWorldDirection(new THREE.Vector3()).normalize();
     
-                    // Solo mover en el eje X y Z, sin afectar el Y
-                    direction.y = 0; // Fijar el valor de Y en 0 para evitar movimientos en el eje vertical
+                    this.raycaster.set(rayOrigin, direction);
     
-                    // Normalizar la dirección para asegurarse de que el movimiento sea constante
-                    direction.normalize();
+                    // Detectar intersecciones
+                    const intersects = this.raycaster.intersectObjects(this.scene.children, true);
     
-                    // Calcular el movimiento en los ejes X y Z a partir de los ejes del gamepad
-                    const movement = new THREE.Vector3(
-                        direction.x * moveAxisY * -0.01, // Ajustar la velocidad en el eje X
-                        0, // No se mueve en el eje Y
-                        direction.z * moveAxisY * -0.01 // Ajustar la velocidad en el eje Z (mover hacia adelante/atrás)
+                    if (intersects.length > 0) {
+                        const firstHit = intersects[0]; // Primera intersección
+                        const distance = firstHit.distance;
+    
+                        // Si la distancia al objeto es menor a 2
+                        if (distance < 2) {
+                            const hitObject = firstHit.object;
+    
+                            // Buscar en `verificar` el método correspondiente al objeto impactado
+                            for (let method of this.verificar) {
+                                // Llamar al método si coincide con el objeto impactado
+                                const modelName = method.name; // Suponiendo que el método está relacionado con un nombre de objeto
+                                if (hitObject.name === modelName) {
+                                    method.call(this); // Llamar al método
+                                    return; // No permitas movimiento adicional
+                                }
+                            }
+                        }
+                    }
+    
+                    // Si no se encuentra ninguna intersección significativa, permitir el movimiento
+                    const forwardMovement = new THREE.Vector3(
+                        direction.x * moveAxisY * -0.01, // Movimiento adelante/atrás
+                        0,
+                        direction.z * moveAxisY * -0.01
                     );
-    
-                    // Agregar el movimiento en el eje X (horizontal) según el eje X del gamepad
-                    this.cameraContainer.position.x += movement.x ; // Movimiento adicional en el eje X
-    
-                    // Agregar el movimiento en el eje Z (vertical) según el eje Y del gamepad
-                    this.cameraContainer.position.z += movement.z; // Movimiento en el eje Z
+                    this.cameraContainer.position.add(forwardMovement);
                 }
             }
         }
     }
+    
 
-    canMove() {
-        // Configurar el raycaster desde la cámara
-        this.raycaster.set(this.camera.getWorldPosition(new THREE.Vector3()), this.camera.getWorldDirection(new THREE.Vector3()));
-
-        // Obtener objetos en la escena
-        const intersects = this.raycaster.intersectObjects(this.scene.children, true);
-
-        // Revisar colisiones con objetos específicos
-        for (const intersect of intersects) {
-            if (intersect.distance <= 1 && (intersect.object.name === "Cuarto" || intersect.object.name === "Pasillo")) {
-                return false; // Bloquear movimiento
-            }
-        }
-        return true; // Permitir movimiento
-    }
+    
     
     
 }
