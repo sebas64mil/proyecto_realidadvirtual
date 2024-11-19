@@ -8,12 +8,12 @@ export class Extras {
 
     crearSituaciones(){
 
-        const geometry_situaciones = new THREE.PlaneGeometry( 0.7, 0.4 );
+        const geometry_situaciones = new THREE.PlaneGeometry( 0.7, 0.6 );
 
 
         const material_opcion1 = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
         const opcion1 = new THREE.Mesh( geometry_situaciones, material_opcion1 );
-        opcion1.position.set(-0.42,6.25,0)
+        opcion1.position.set(-0.45,6.,0)
         opcion1.rotation.y=THREE.MathUtils.degToRad(90);
 
         this.scene.add( opcion1 );
