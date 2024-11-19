@@ -22,28 +22,30 @@ export class PC {
         const gamepads = navigator.getGamepads();
         if (gamepads) {
             this.gamepad = gamepads[0];
-    
+        
             if (this.gamepad) {
                 const moveAxisX = this.gamepad.axes[0];
                 const moveAxisY = this.gamepad.axes[1];
-    
+        
                 if (moveAxisX !== 0 || moveAxisY !== 0) {
                     const direction = this.camera.getWorldDirection(new THREE.Vector3()).normalize();
                     direction.y = 0;
-    
+        
                     const movement = new THREE.Vector3(
                         direction.x * moveAxisY * -0.01,
                         0,
                         direction.z * moveAxisY * -0.01
                     );
-    
+        
                     // Crear un rayo para detectar colisiones
                     this.raycaster.ray.origin.copy(this.cameraContainer.position);
                     this.raycaster.ray.direction.copy(movement);
-    
-                    const intersects = this.raycaster.intersectObjects(this.scene.children);
-    
+        
+                    // Llamar al método para comprobar la colisión con el botón
+                    this.checkButtonCollision();
+        
                     // Si no hay colisión, mover la cámara
+                    const intersects = this.raycaster.intersectObjects(this.scene.children);
                     if (intersects.length === 0) {
                         this.cameraContainer.position.add(movement);
                     }
@@ -51,6 +53,24 @@ export class PC {
             }
         }
     }
+
+    checkButtonCollision() {
+        const intersects = this.raycaster.intersectObjects(this.scene.children);
+    
+        if (intersects.length > 0) {
+            const intersectedObject = intersects[0].object;
+    
+            if (intersectedObject.name === 'portalButton') { // Verificar si el objeto tocado es el botón
+                // Verificar si la tecla 'x' fue presionada
+                if (window.navigator.vibrate && this.isKeyPressed('x')) {
+                    window.navigator.vibrate(200); // Vibrar por 200ms
+                }
+            }
+        }
+    }
+    
+    
+    
     
 
     
