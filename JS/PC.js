@@ -104,7 +104,7 @@ export class PC {
     }
 
     checkVisibilityBasedOnDistance() {
-        const thresholdDistance = 5; // Ajusta la distancia según sea necesario
+        const thresholdDistance = 2.5; // Ajusta la distancia según sea necesario
     
         this.scene.traverse((child) => {
             // Asegúrate de que el objeto tiene un nombre y verifica si es relevante
