@@ -1,7 +1,8 @@
 // pm.js
 
-import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
+
 import * as THREE from 'three';
+import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 
 export class PM {
     constructor(scene) {
@@ -12,7 +13,7 @@ export class PM {
         if (Boton === "inicio") {
             // Usamos el FontLoader para cargar la fuente y crear el texto
             const loader = new THREE.FontLoader();
-            loader.load('fonts/helvetiker_regular.typeface.json', (font) => {
+            loader.load('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json', (font) => {
                 const geometry = new THREE.TextGeometry('Continuar', {
                     font: font,
                     size: 1.5,

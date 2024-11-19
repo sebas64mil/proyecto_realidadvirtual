@@ -71,7 +71,7 @@ class Main {
             // Aquí gestionamos la lógica según si estamos en VR o no
             this.pc.move();
             this.pc.Comprobar();
-            this.pc.checkVisibilityBasedOnDistance();// Mover el objeto 3D según el gamepad
+            this.pc.checkVisibilityBasedOnDistance();
 
             // Renderizar la escena con la cámara
             this.renderer.render(this.scene, this.camera);
