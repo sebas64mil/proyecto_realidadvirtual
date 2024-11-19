@@ -66,6 +66,11 @@ export class PC {
     
 
     Comprobar() {
+        // Variable para rastrear si el botón ya fue presionado
+        if (this.buttonPressed === undefined) {
+            this.buttonPressed = false; // Inicialización la primera vez que se llama al método
+        }
+    
         // Realizamos el raycast para detectar las colisiones
         const intersects = this.raycaster.intersectObjects(this.scene.children, true);
     
@@ -75,21 +80,26 @@ export class PC {
     
             // Recorremos la jerarquía hacia arriba buscando el objeto principal
             while (intersectedObject.parent) {
-                if (intersectedObject.name === "FBXportalButton") {
+                if (intersectedObject.name === "FBXbotonInicio") {
                     // Verificar si un gamepad está conectado
                     const gamepads = navigator.getGamepads();
                     if (gamepads && gamepads[0]) {
                         const gamepad = gamepads[0];
     
-                        // Verificar si se presionó un botón específico (por ejemplo, el botón 0)
-                        if (gamepad.buttons[0].pressed) {
+                        // Verificar si el botón fue presionado y no ha sido registrado antes
+                        if (gamepad.buttons[0].pressed && !this.buttonPressed) {
                             console.log("El objeto colisionado es el portalButton y se presionó el botón del gamepad");
+    
+                            // Marcamos el botón como presionado
+                            this.buttonPressed = true;
     
                             // Vibración en el dispositivo móvil
                             if (navigator.vibrate) {
                                 navigator.vibrate(200);
                             }
                             return;
+                        } else if (this.buttonPressed) {
+                            console.log("El botón ya fue presionado anteriormente.");
                         }
                     }
     
@@ -102,6 +112,7 @@ export class PC {
             console.log("El objeto colisionado no es el portalButton");
         }
     }
+    
 
     checkVisibilityBasedOnDistance() {
         const thresholdDistance = 2.5; // Ajusta la distancia según sea necesario
