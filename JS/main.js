@@ -4,6 +4,7 @@ import { PV } from './PV.js';
 import { PC } from './PC.js';
 import { PM } from './PM.js';
 
+
 class Main {
     constructor() {
         this.scene = null;
@@ -23,7 +24,7 @@ class Main {
         // Configurar renderer con soporte VR
         this.renderer = new THREE.WebGLRenderer({ antialias: true });
         this.renderer.setSize(window.innerWidth, window.innerHeight);
-        this.renderer.xr.enabled = true; // Habilitar VR
+        this.renderer.xr.enabled = true; // Habilitar WebXR para VR
         document.body.appendChild(this.renderer.domElement);
     
         // Agregar botón VR
@@ -50,18 +51,22 @@ class Main {
         this.init();
 
         // Render loop
-        this.renderer.setAnimationLoop(() => {
-            // Manejo del control de VR
-            this.pc.handleVRMovement(this.isVRMode); // Pasamos el estado de VR
+        this.renderer.setAnimationLoop((time, frame) => {
+            // Si estamos en VR, manejar la lógica de VR
+            if (this.isVRMode) {
+                // Aquí puedes manejar cosas específicas del VR, como los controladores.
+                // El renderizado y la actualización de la cámara en VR se maneja automáticamente.
+            } else {
+                // Si no estamos en VR, manejar el movimiento usando gamepad o teclado
+                this.pc.handleVRMovement(this.isVRMode);
+            }
 
-            // Renderizar escena
+            // Renderizar la escena con la cámara
             this.renderer.render(this.scene, this.camera);
         });
     }
 }
 
-
 // Crear instancia de Main y ejecutar
 const app = new Main();
 app.start();
-
