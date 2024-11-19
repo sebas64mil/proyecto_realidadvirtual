@@ -71,6 +71,8 @@ export class PV {
 
                 // Añadir el modelo a la escena
                 this.scene.add(fbx);
+
+                this.addPhysicsObject(fbx, 0);
             },
             (xhr) => {
                 console.log((xhr.loaded / xhr.total) * 100 + '% cargado');
