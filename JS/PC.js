@@ -13,7 +13,7 @@ export class PC {
         this.camera.rotation.y=THREE.MathUtils.degToRad(180)
         this.cameraContainer.add(this.camera); // Añadimos la cámara al contenedor
         this.scene.add(this.cameraContainer);
-        this.cameraContainer.position.set(0, 5, 0.0) // Añadimos el contenedor a la escena
+        this.cameraContainer.position.set(0, 4.5, 0.0) // Añadimos el contenedor a la escena
     }
 
     move() {
