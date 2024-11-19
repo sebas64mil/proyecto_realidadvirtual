@@ -38,18 +38,22 @@ export class PC {
                     // Normalizar la dirección para asegurarse de que el movimiento sea constante
                     direction.normalize();
     
-                    // Calcular el movimiento en los ejes X y Z a partir de ambos ejes del gamepad
+                    // Calcular el movimiento en los ejes X y Z a partir de los ejes del gamepad
                     const movement = new THREE.Vector3(
-                        direction.x * moveAxisX * 0.01, // Ajustar la velocidad en el eje X
+                        direction.x * moveAxisY * 0.1, // Ajustar la velocidad en el eje X
                         0, // No se mueve en el eje Y
-                        direction.z * moveAxisY * 0.01 // Ajustar la velocidad en el eje Z
+                        direction.z * moveAxisY * 0.1 // Ajustar la velocidad en el eje Z (mover hacia adelante/atrás)
                     );
     
-                    // Mover el contenedor de la cámara
-                    this.cameraContainer.position.add(movement); // Mover el contenedor
+                    // Agregar el movimiento en el eje X (horizontal) según el eje X del gamepad
+                    this.cameraContainer.position.x += movement.x + moveAxisX * 0.1; // Movimiento adicional en el eje X
+    
+                    // Agregar el movimiento en el eje Z (vertical) según el eje Y del gamepad
+                    this.cameraContainer.position.z += movement.z; // Movimiento en el eje Z
                 }
             }
         }
     }
+    
     
 }
