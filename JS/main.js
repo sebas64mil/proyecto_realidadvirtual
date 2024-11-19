@@ -58,7 +58,8 @@ class Main {
         this.pv.FBXpasillo4();
         this.pv.FBXcuarto5();
         this.pv.FBXbutton();
-        this.pv.FBXbuttonSala2();
+        this.pv.FBXbuttonSalaE2();
+        this.pv.FBXbuttonSalaI2
     }
 
     start() {
