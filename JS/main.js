@@ -28,7 +28,7 @@ class Main {
         // Agregar botón VR
         document.body.appendChild(VRButton.createButton(this.renderer));
 
-        // La cámara de VR será manejada por WebXR automáticamente
+        // Configurar cámara para uso inicial (se ajustará dinámicamente en VR)
         this.camera = new THREE.PerspectiveCamera(
             75,
             window.innerWidth / window.innerHeight,
@@ -38,7 +38,8 @@ class Main {
 
         // Inicializar PV (geometrías) y PC (control de VR)
         this.pv = new PV(this.scene);
-        this.pc = new PC(this.renderer.xr.getCamera(this.camera), this.scene);
+        this.pc = new PC(this.renderer.xr.getCamera(this.camera)
+        , this.scene);
 
         // Añadir geometrías
         this.pv.addGreenCube();
@@ -62,3 +63,4 @@ class Main {
 // Crear instancia de Main y ejecutar
 const app = new Main();
 app.start();
+
