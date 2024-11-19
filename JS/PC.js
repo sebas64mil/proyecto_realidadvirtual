@@ -21,18 +21,24 @@ export class PC {
 
             if (this.gamepad) {
                 // Aquí accedemos al eje de movimiento (usualmente el eje Z)
-                const moveAxis = this.gamepad.axes[1]; // Eje vertical del gamepad (movimiento hacia adelante/atrás)
+                const moveAxis = this.gamepad.axes[0]; // Eje vertical del gamepad (movimiento hacia adelante/atrás)
 
                 // Si estamos moviendo el eje, calculamos la dirección en la que está mirando la cámara
                 if (moveAxis !== 0) {
-                    // Obtener la dirección de movimiento de la cámara
+                    // Obtener la dirección de movimiento de la cámara (solo los ejes X y Z)
                     const direction = this.camera.getWorldDirection(new THREE.Vector3()).normalize();
+
+                    // Solo mover en el eje X y Z, sin afectar el Y
+                    direction.y = 0; // Fijar el valor de Y en 0 para evitar movimientos en el eje vertical
+
+                    // Normalizar la dirección para asegurarse de que el movimiento sea constante
+                    direction.normalize();
 
                     // Raycast desde la cámara para determinar hacia dónde estamos mirando
                     // Establecer el origen y la dirección del rayo
                     this.raycaster.set(this.camera.position, direction);
 
-                    // Calcular el movimiento del contenedor de la cámara
+                    // Calcular el movimiento del contenedor de la cámara (solo en X y Z)
                     const movement = direction.multiplyScalar(moveAxis * 0.1); // Ajustar velocidad
                     this.cameraContainer.position.add(movement); // Mover el contenedor
                 }
