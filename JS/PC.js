@@ -68,6 +68,9 @@ export class PC {
                 }
             } else {
                 console.log("El objeto colisionado no es el portalButton");
+                if (navigator.vibrate) {
+                    navigator.vibrate(50);
+                }
             }
         } 
     }
