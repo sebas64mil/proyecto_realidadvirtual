@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { PV } from './PV.js';
+import { PM } from './PM.js'; 
 
 export class PC {
     constructor(camera, scene) {
@@ -17,6 +18,8 @@ export class PC {
         this.cameraContainer.position.set(0, 4.6, 0.0); // Añadimos el contenedor a la escena
 
         this.PV= new PV(scene);
+
+        this.PM = new PM();
     }
 
     move() {
@@ -97,6 +100,15 @@ export class PC {
                             if (navigator.vibrate) {
                                 navigator.vibrate(200);
                             }
+    
+                            // Establecer el valor de Boton y pasar a PM
+                            let Boton = "inicio";
+    
+                            // Pasar la variable 'Boton' a la clase PM
+                            if (this.PV && this.PV.PM) {
+                                this.PV.PM.updateBoton(Boton);
+                            }
+    
                             return;
                         } else if (this.buttonPressed) {
                             console.log("El botón ya fue presionado anteriormente.");
@@ -112,6 +124,7 @@ export class PC {
             console.log("El objeto colisionado no es el portalButton");
         }
     }
+    
     
 
     checkVisibilityBasedOnDistance() {
